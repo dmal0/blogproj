@@ -1,0 +1,36 @@
+<!-- inherit from base.html -->
+{% extends "blog_app/base_template.html" %}
+
+<!-- For displaying images -->
+{% load static %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<div class="container-lg">
+    <p><h1>Blog</h1></p>
+
+    <div class="row">
+        <!-- Posts -->
+         <div class="col-8">
+            <p>
+                <div class="p-2 container-fluid border rounded">
+                    <!-- One specific post! -->
+                    <h2>{{ post.title }}</h2>
+                    <p>by {{ post.author }}</p>
+                    <p>{{ post.content }}</p>
+                </div>
+            </p>
+         </div>
+         <!-- Profile -->
+         <div class="col-4">
+            <p>
+                <div class="p-2 container-fluid border rounded">
+                    <img src="{% static 'images/icontemp.png' %}" class="img-fluid border rounded w-50 mx-auto d-block">
+                    <h4>About</h4>
+                    <p>This is ANY USER's profile; this should be filled using a model.</p>
+                </div>
+            </p>
+         </div>
+    </div>    
+</div>
+{% endblock %}

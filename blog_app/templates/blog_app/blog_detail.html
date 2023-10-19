@@ -13,10 +13,20 @@
         <!-- Posts -->
          <div class="col-8">
             <p>
+                {% if post_list %}
+                {% for post in post_list %}
                 <div class="p-2 container-fluid border rounded">
-                    <p>This will be a list of another user's posts; this should be filled using a model.</p>
-                    <p>There should be a link to each post, a preview, and hopefully also a thumbnail image.</p>
+                    <h2>{{ post.title }}</h2>
+                    <p>by {{ post.author }}</p>
+                    <p>{{ post.content}}</p>
+                    <a class="btn btn-primary btn-sm disabled" href="blog/{{blog.id}}/post/{{post.id}}" role="button">View Full Post</a>
                 </div>
+                {% endfor %}
+                {% else %}
+                <div class="p-2 container-fluid border rounded">
+                    <p>This blog has no posts.</p>
+                </div>
+                {% endif %}
             </p>
          </div>
          <!-- Profile -->

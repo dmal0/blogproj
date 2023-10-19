@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -11,6 +11,14 @@ urlpatterns = [
 
     # Path to logged-in user's own blog
     path('blog', views.myBlog, name='my_blog'),
+
+    # Path to any user's blog
+    path('blog/<int:pk>', views.BlogDetailView.as_view(), name='blog-detail'),
+
+    # Path to any user's post
+    #path('blog/<int:blog_id>/post/<int:post_id>', views.PostDetailView.as_view(), name='post'),
+
+    #############################################################
 
     # Path to logged-in user's post management page
     path('manage', views.managePosts, name='manage_posts'),
