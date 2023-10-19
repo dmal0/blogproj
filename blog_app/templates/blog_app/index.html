@@ -1,0 +1,41 @@
+<!-- inherit from base.html-->
+{% extends "blog_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<div class="container-lg">
+    <p><h1>Dashboard</h1></p>
+
+    <!-- Top buttons -->
+    <p>
+        <a class="btn btn-primary" href="#" role="button">New Post</a> 
+        <a class="btn btn-primary" href="manage" role="button">Manage Posts</a> 
+        <a class="btn btn-primary" href="blog" role="button">View Blog</a>
+    </p>
+
+    <!-- Recent Comments -->
+    <p>
+        <h2>Recent Comments</h2>
+        <div class="p-2 container-fluid border rounded">
+            <p>This should only show the first 5 or 10 most recent comments.</p>
+                <div class="p-2 container-sm border rounded">
+                    <p>
+                        <strong>Relevant Post Title</strong><br>
+                        By: Comment author | DD Month YYYY HH:MM<br>
+                        Comment preview...<br>
+                    </p>
+                    <a class="btn btn-primary btn-sm disabled" href="#" role="button">View Comment</a>
+                </div>
+        </div>
+    </p>
+
+    <!-- Saved Blogs -->
+    <p>
+        <h2>Saved Blogs</h2>
+        <div class="p-2 container-fluid border rounded">
+            <p>This should only show the first 3 or so saved blogs.</p>
+            <a class="btn btn-primary" href="saved" role="button">View All</a>
+        </div>
+    </p>
+</div>
+{% endblock %}

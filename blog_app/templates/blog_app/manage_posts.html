@@ -1,0 +1,19 @@
+<!-- inherit from base.html-->
+{% extends "blog_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<div class="container-lg">
+    <p><h1>Manage Posts</h1></p>
+
+    <!-- Posts -->
+    <p>
+        <div class="p-2 container-fluid border rounded">
+            <p>This will be a list of my posts; this should be filled using a model.</p>
+            <p>Each post should be listed by title and date; this should be done using a model.</p>
+            <p>There should be a view, edit, and delete button for each post.</p>
+        </div>
+    </p>
+
+</div>
+{% endblock %}

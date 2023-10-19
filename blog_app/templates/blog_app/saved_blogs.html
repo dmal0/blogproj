@@ -1,0 +1,16 @@
+<!-- inherit from base.html-->
+{% extends "blog_app/base_template.html" %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<div class="container-lg">
+    <p><h1>Saved Blogs</h1></p>
+
+    <p>
+        This should be a list of other people's blogs, saved by the logged-in user.<br>
+        This should show the profile picture (hopefully), the blog title, <br>
+        the most recent post title and preview, and the most recent post's date.
+    </p>
+
+</div>
+{% endblock %}
