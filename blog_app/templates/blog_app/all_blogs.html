@@ -4,15 +4,13 @@
 <!-- Replace block content in base_template.html -->
 {% block content %}
 <div class="container-lg">
-    <p><h1>Index</h1></p>
-
-    <p><h2>TBA</h2></p>
-    <!--<ul class="list-group">
+    <p><h1>All Blogs</h1></p>
+    <ul class="list-group">
         {% for i in all_blogs %}
-            <li class="list-group-item">Name: {{i.name}}
-            <p><strong>Blog Title: {{ i.blog.title }}
+            <li class="list-group-item">Author Name: {{i.name}}
+            <p><strong>Blog Name: {{ i.blog.name }}
             <a class="btn btn-primary" href="{{ i.blog.get_absolute_url }}" role="button">View</a>
             </li>
         {% endfor %}
-    </ul>-->
+    </ul>
 {% endblock %}

@@ -9,11 +9,19 @@ urlpatterns = [
     # example in html <a href="{% url 'index' %}">Home</a>.
     path('', views.index, name='index'),
 
+    # Path to dashboard
+    path('dashboard', views.dashboard, name='dashboard'),
+
     # Path to logged-in user's own blog
     path('blog', views.myBlog, name='my_blog'),
 
     # Path to any user's blog
     path('blog/<int:pk>', views.BlogDetailView.as_view(), name='blog-detail'),
+
+    #############################################################
+
+    # Path to create new post
+    path('blog/<int:blog_id>/new_post', views.createPost, name='create_post'),
 
     # Path to any user's post
     #path('blog/<int:blog_id>/post/<int:post_id>', views.PostDetailView.as_view(), name='post'),
@@ -28,4 +36,7 @@ urlpatterns = [
 
     # Path to logged-in user's saved blogs
     path('saved', views.savedBlogs, name='savedBlogs'),
+
+    # Path to all blogs
+    path('all', views.allBlogs, name='allBlogs'),
 ]
