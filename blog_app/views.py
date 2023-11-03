@@ -7,6 +7,11 @@ from django.urls import reverse
 
 # Create your views here.
 
+############################################################################################
+# Dashboard and index
+############################################################################################
+
+# Index
 def index(request):
     # Render index.html
     return render( request, 'blog_app/index.html')
@@ -28,12 +33,14 @@ def dashboard(request):
     # Render dashboard.html
     return render( request, 'blog_app/dashboard.html', {'comment_list':comment_list,'blog_list':blog_list})
 
+############################################################################################
+# Blog viewing
+############################################################################################
+
 # Logged-in user's own blog
 def myBlog(request):
     # Render blog.html
     return render( request, 'blog_app/my_blog.html')
-
-##############################################
 
 # Any user's blog
 #def blog(request):
@@ -49,7 +56,9 @@ class BlogDetailView(generic.DetailView):
         context['post_list'] = Post.objects.filter(blog=self.object).reverse()
         return context
 
-##############################################
+############################################################################################
+# Post viewing
+############################################################################################
 
 class PostDetailView(generic.DetailView):
     model = Post
@@ -58,6 +67,10 @@ class PostDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['comment_list'] = Comment.objects.filter(post=self.object)
         return context
+
+############################################################################################
+# Post CRUD
+############################################################################################
 
 # Create Post
 def createPost(request, blog_id):
@@ -88,6 +101,10 @@ def createPost(request, blog_id):
     context = {'form': form}
     return render(request, 'blog_app/post_form.html', context)
 
+############################################################################################
+# Comment CRUD
+############################################################################################
+
 # Create Comment
 def createComment(request, blog_id, pk):
     form = CommentForm()
@@ -112,7 +129,9 @@ def createComment(request, blog_id, pk):
     context = {'form': form}
     return render(request, 'blog_app/comment_form.html', context)
 
-##############################################
+############################################################################################
+# Management and settings
+############################################################################################
 
 # Logged-in user's post management page
 def managePosts(request):
@@ -123,6 +142,10 @@ def managePosts(request):
 def settings(request):
     # Render relevant template
     return render( request, 'blog_app/settings.html')
+
+############################################################################################
+# Blog lists
+############################################################################################
 
 # Logged-in user's saved blogs
 def savedBlogs(request):
