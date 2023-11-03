@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import generic
 from .models import Author, Blog, Post, Comment
 from .forms import PostForm, CommentForm
+from django.urls import reverse
 
 # Create your views here.
 
@@ -45,7 +46,7 @@ class BlogDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post_list'] = Post.objects.filter(blog=self.object)
+        context['post_list'] = Post.objects.filter(blog=self.object).reverse()
         return context
 
 ##############################################
@@ -63,7 +64,7 @@ def createPost(request, blog_id):
     form = PostForm()
     blog = Blog.objects.get(pk=blog_id)
     author_name = Blog._meta.get_field('author')
-    author = Author.objects.filter(name=author_name).get_absolute_url
+    author = Author.objects.filter(name=author_name).get_absolute_url()
     
 
     if request.method == 'POST':
@@ -88,25 +89,25 @@ def createPost(request, blog_id):
     return render(request, 'blog_app/post_form.html', context)
 
 # Create Comment
-def createComment(request, blog_id, post_id, pk):
+def createComment(request, blog_id, pk):
     form = CommentForm()
-    post = Post.objects.get(pk=post_id)   
+    post_id = Post.objects.get(pk=pk)  
 
     if request.method == 'POST':
         # Create a new dictionary with form data and post_id
         comment_data = request.POST.copy()
         comment_data['post_id'] = post_id
         
-        form = PostForm(comment_data)
+        form = CommentForm(comment_data)
         if form.is_valid():
             # Save the form without committing to the database
             comment = form.save(commit=False)
             # Set the portfolio relationship
-            comment.post = post
+            comment.post = post_id
             comment.save()
 
             # Redirect back to the portfolio detail page
-            return redirect('post-detail', post_id)
+            return redirect('post-detail', blog_id, pk)
 
     context = {'form': form}
     return render(request, 'blog_app/comment_form.html', context)

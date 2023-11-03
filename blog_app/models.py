@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -37,7 +38,7 @@ class Blog(models.Model):
 
 # Blog Post
 class Post(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, default="Untitled")
     content = models.TextField()
     # One-to-Many Blog-Post relationship; Blog has many Posts, Posts belong to one Blog
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=None)
@@ -55,7 +56,9 @@ class Post(models.Model):
 class Comment(models.Model):
     # Post comment belongs to; One post has many comments
     post = models.ForeignKey(Post, on_delete=models.CASCADE, default=None)
+    
     # General / if anonymous; ideally would like to attach blog authors if logged in
-    commenter = models.CharField(max_length=100)
+    commenter = models.CharField(max_length=100, default="Anonymous")
+    
     # Actual comment content
     content = models.TextField()
