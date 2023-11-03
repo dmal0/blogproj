@@ -50,3 +50,12 @@ class Post(models.Model):
     
     def get_absolute_url(self):
         return reverse("post-detail", args=[str(self.id)])
+    
+# Post Comment
+class Comment(models.Model):
+    # Post comment belongs to; One post has many comments
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, default=None)
+    # General / if anonymous; ideally would like to attach blog authors if logged in
+    commenter = models.CharField(max_length=100)
+    # Actual comment content
+    content = models.TextField()

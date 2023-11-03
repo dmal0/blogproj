@@ -7,38 +7,48 @@
 <!-- Replace block content in base_template.html -->
 {% block content %}
 <div class="container-lg">
-    <p><h1>Blog Title</h1></p>
+    <p><h1>{{ blog.name }}</h1></p>
 
     <div class="row">
         <!-- Posts -->
-         <div class="col-8">
-            <p>
-                {% if post_list %}
+        <div class="col-8">
+            {% if post_list %}
                 {% for post in post_list %}
+                <p>
                 <div class="p-2 container-fluid border rounded">
-                    <h2>{{ post.title }}</h2>
-                    <p>by {{ post.author }}</p>
-                    <p>{{ post.content}}</p>
-                    <a class="btn btn-primary btn-sm disabled" href="blog/{{blog.id}}/post/{{post.id}}" role="button">View Full Post</a>
-                </div>
+                        <h2>{{ post.title }}</h2>
+                        <p>{{ post.content}}</p>
+                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}" role="button">View Full Post</a>
+                    </div>
+                </p>
                 {% endfor %}
-                {% else %}
-                <div class="p-2 container-fluid border rounded">
-                    <p>This blog has no posts.</p>
-                </div>
-                {% endif %}
-            </p>
-         </div>
-         <!-- Profile -->
-         <div class="col-4">
+            {% else %}
+                <p>
+                    <div class="p-2 container-fluid border rounded">
+                        <p>This blog has no posts.</p>
+                    </div>
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- Profile -->
+        <div class="col-4">
             <p>
                 <div class="p-2 container-fluid border rounded">
                     <img src="{% static 'images/icontemp.png' %}" class="img-fluid border rounded w-50 mx-auto d-block">
                     <h4>About</h4>
-                    <p>This is another user's profile; this should be filled using a model.</p>
+                    <h5>Author</h5>
+                    <p>
+                        {{ blog.author }}
+                    </p>
+                    
+                    <h5>Profile</h5>
+                    <p>
+                        {{ blog.author.profile }}
+                    </p>
                 </div>
             </p>
-         </div>
+        </div>
     </div>    
 </div>
 {% endblock %}

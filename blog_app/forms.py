@@ -1,8 +1,14 @@
 from django.forms import ModelForm
-from .models import Post
+from .models import Post, Comment
 
-#create class for project form
+# Create post form
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields =('title', 'content')
+        fields = ('title', 'content')
+
+# Create comment form
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('commenter', 'content')

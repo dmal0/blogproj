@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Blog Site</title>
+<title>Blog App</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 {% load bootstrap5 %}
@@ -12,43 +12,63 @@
 <body>
 
 
-<nav class="navbar sticky-top navbar-expand-lg" style="background-color: #e3f2fd;">
+<nav class="navbar sticky-top navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Blog Site</a>
+    <!-- Branding and toggle -->
+    <a class="navbar-brand" href="#"><strong>Blog App</strong></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Navbar -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+        <!-- General navigation-->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Index</a>
+          <a class="nav-link" aria-current="page" href="/">Index</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
         </li>
+        
+        <!-- Blog pages -->
         <li class="nav-item">
           <a class="nav-link" href="/all">All Blogs</a>
         </li>
+        <!-- SAVE this for Sprint 2 because it involves individual user accounts -->
+        <!--
         <li class="nav-item">
           <a class="nav-link" href="/saved">Saved Blogs</a>
         </li>
+        -->
+
+        <!-- Dropdown menu -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Account
           </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/blog">My Blog</a></li>
-                <li><a class="dropdown-item" href="/manage">Manage Posts</a></li>
-                <li><a class="dropdown-item" href="/settings">Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item disabled" href="#">Logout</a></li>
-            </ul>
+          
+          <ul class="dropdown-menu">
+            <!-- FOR SPRINT 1: This leads to Blog 1 (Loe's Blog) by default -->
+            <li><a class="dropdown-item" href="/blog/1">My Blog</a></li>
+
+            <!-- FOR SPRINT 1: These all manage Blog 1 (Loe's Blog) by default -->
+            <li><a class="dropdown-item" href="/manage">Manage Posts</a></li>
+            <li><a class="dropdown-item" href="/settings">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item disabled" href="#">Logout</a></li>
+          </ul>
         </li>
       </ul>
+      
+      <!-- Search -->
+      <!--
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
+      -->
     </div>
   </div>
 </nav>

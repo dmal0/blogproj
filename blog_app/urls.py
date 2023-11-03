@@ -24,7 +24,10 @@ urlpatterns = [
     path('blog/<int:blog_id>/new_post', views.createPost, name='create_post'),
 
     # Path to any user's post
-    #path('blog/<int:blog_id>/post/<int:post_id>', views.PostDetailView.as_view(), name='post'),
+    path('blog/<int:blog_id>/post/<int:pk>', views.PostDetailView.as_view(), name='post-detail'),
+
+    # Path to make new comment on a post
+    path('blog/<int:blog_id>/post/<int:pk>/new_comment', views.createComment, name='create_comment'),
 
     #############################################################
 
@@ -38,5 +41,5 @@ urlpatterns = [
     path('saved', views.savedBlogs, name='savedBlogs'),
 
     # Path to all blogs
-    path('all', views.allBlogs, name='allBlogs'),
+    path('all', views.allBlogs, name='all'),
 ]

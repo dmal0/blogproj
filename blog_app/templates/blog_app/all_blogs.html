@@ -5,12 +5,21 @@
 {% block content %}
 <div class="container-lg">
     <p><h1>All Blogs</h1></p>
-    <ul class="list-group">
-        {% for i in all_blogs %}
-            <li class="list-group-item">Author Name: {{i.name}}
-            <p><strong>Blog Name: {{ i.blog.name }}
-            <a class="btn btn-primary" href="{{ i.blog.get_absolute_url }}" role="button">View</a>
+    {% if blog_list %}
+        <ul class="list-group list-group-horizontal">
+            {% for i in blog_list %}
+            <li class="list-group-item p-3">
+                <p>
+                    <strong>Blog Name:</strong> {{ i.name }}<br>
+                    <strong>Author:</strong> {{ i.author }}<br>
+                </p>
+                <p>
+                    <a class="btn btn-primary" href="/blog/{{ i.id }}" role="button">View</a>
+                </p>
             </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no blogs registered.</p>
+    {% endif %}
 {% endblock %}

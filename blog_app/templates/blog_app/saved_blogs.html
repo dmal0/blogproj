@@ -11,6 +11,23 @@
         This should show the profile picture (hopefully), the blog title, <br>
         the most recent post title and preview, and the most recent post's date.
     </p>
+    <!--<p>
+        <ul class="list-group list-group-horizontal p-2 border rounded">
+            {% if blog_list %}
+                {% for blog in blog_list %}
+                <li class="list-group-item">
+                    <h2>{{ blog.name }}</h2>
+                    <p>by {{ blog.author }}</p>
+                    <a class="btn btn-primary btn-sm disabled" href="blog/{{blog.id}}" role="button">View Blog</a>
+                </li>
+                {% endfor %}
+                {% else %}
+                <li class="list-group-item">
+                    <p>There are no saved blogs.</p>
+                </li>
+            {% endif %}
+        </ul>
+    </p>-->
 
 </div>
 {% endblock %}
