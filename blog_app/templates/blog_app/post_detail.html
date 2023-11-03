@@ -15,36 +15,47 @@
             <!-- Post -->
             <p>
                 <div class="p-2 container-fluid border rounded">
-                    <!-- One specific post! -->
+                    <!-- One specific post -->
                     <h2>{{ post.title }}</h2>
                     <p>{{ post.content }}</p>
+
+                    <!-- Buttons: Edit, Delete -->
+                        <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
+                    <a class="btn btn-primary btn-sm" href="#" role="button">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
                 </div>
             </p>
 
             <!-- Comments -->
             <p>
                 <div class="p-2 container-fluid border rounded">
-                    <h3>Comments</h3>
+                    <h4>Comments</h4>
                     {% if comment_list %}
                         {% for comment in comment_list %}
                         <p>
-                        <div class="p-2 container-fluid border rounded">
+                            <div class="p-2 container-fluid border rounded">
                                 <p>
                                     <strong>{{ comment.commenter }}:</strong><br>
                                     {{ comment.content }}
                                 </p>
+                                
+                                <!-- Button for updating comments --> 
+                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/update_comment/{{comment.id}}" role="button">Edit</a>
+
+                                <!-- Button for deleting comments --> 
+                                <a class="btn btn-outline-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete_comment/{{comment.id}}" role="button">Delete</a>
                             </div>
                         </p>
                         {% endfor %}
                     {% else %}
                         <p>
-                            <div class="p-2 container-fluid border rounded">
+                            <div class="p-2 container-fluid">
                                 <p>This post has no comments.</p>
                             </div>
                         </p>
                     {% endif %}
                     <!-- Button for making new comments -->
-                    <a class="btn btn-outline-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/new_comment" role="button">New Comment</a> 
+                    <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/new_comment" role="button">New Comment</a>
                 </div>
             </p>
 
@@ -62,12 +73,16 @@
                     <h4>About</h4>
                     <h5>Author</h5>
                     <p>
-                        {{ post.blog.author }}
+                        <div class="container-sm">
+                            {{ post.blog.author }}
+                        </div>
                     </p>
                     
                     <h5>Profile</h5>
                     <p>
-                        {{ post.blog.author.profile }}
+                        <div class="container-sm">
+                            {{ post.blog.author.profile }}
+                        </div>
                     </p>
                 </div>
             </p>

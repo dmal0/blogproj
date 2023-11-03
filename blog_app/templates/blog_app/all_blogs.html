@@ -8,14 +8,22 @@
     {% if blog_list %}
         <ul class="list-group list-group-horizontal">
             {% for i in blog_list %}
-            <li class="list-group-item p-3">
-                <p>
-                    <strong>Blog Name:</strong> {{ i.name }}<br>
-                    <strong>Author:</strong> {{ i.author }}<br>
-                </p>
-                <p>
-                    <a class="btn btn-primary" href="/blog/{{ i.id }}" role="button">View</a>
-                </p>
+            <!-- Actual Blog -->
+            <li class="list-group-item p-0 border-0">
+                <div class="p-2 container-sm border rounded">
+                    <p>
+                        <strong>Blog Name:</strong> {{ i.name }}<br>
+                        <strong>Author:</strong> {{ i.author }}<br>
+                    </p>
+                    <p>
+                        <a class="btn btn-primary" href="/blog/{{ i.id }}" role="button">View Blog</a>
+                    </p>
+                </div>
+            </li>
+
+            <!-- Spacer -->
+            <li class="list-group-item p-0 border-0">
+                &nbsp
             </li>
             {% endfor %}
         </ul>

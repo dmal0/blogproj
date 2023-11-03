@@ -15,10 +15,16 @@
             {% if post_list %}
                 {% for post in post_list %}
                 <p>
-                <div class="p-2 container-fluid border rounded">
+                    <div class="p-2 container-fluid border rounded">
+                        <!-- Actual Post Content -->
                         <h2>{{ post.title }}</h2>
                         <p>{{ post.content}}</p>
-                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}" role="button">View Full Post</a>
+
+                        <!-- Buttons: View, Edit, Delete -->
+                            <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
+                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}" role="button">View Post</a>
+                        <a class="btn btn-outline-primary btn-sm" href="#" role="button">Edit</a>
+                        <a class="btn btn-outline-danger btn-sm" href="#" role="button">Delete</a>
                     </div>
                 </p>
                 {% endfor %}
@@ -39,12 +45,16 @@
                     <h4>About</h4>
                     <h5>Author</h5>
                     <p>
-                        {{ blog.author }}
+                        <div class="container-sm">
+                            {{ blog.author }}
+                        </div>
                     </p>
                     
                     <h5>Profile</h5>
                     <p>
-                        {{ blog.author.profile }}
+                        <div class="container-sm">
+                            {{ blog.author.profile }}
+                        </div>
                     </p>
                 </div>
             </p>

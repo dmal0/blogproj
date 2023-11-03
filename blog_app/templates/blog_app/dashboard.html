@@ -18,19 +18,23 @@
         <a class="btn btn-primary" href="/blog/1" role="button">View Blog</a>
     </p>
 
-    <!-- All / Recent Comments -->
+    <!-- Recent Comments -->
     <!-- This should ONLY be recent comments in the final version; the first 5~10 comments -->
     <p>
-        <h2>All Comments</h2>
+        <h2>Recent Comments</h2>
         <div class="p-2 container-fluid border rounded">
             {% if comment_list %}
                 {% for i in comment_list %}
                 <p>
                     <div class="p-2 container-sm border rounded">
                         <p>
-                            By: {{ i.commenter }}<br>
-                            On: {{ i.post.title }}<br>
-                            {{ i.content }}<br>
+                            <strong>From:</strong> {{ i.commenter }}<br>
+                            <strong>On:</strong> "{{ i.post.title }}" by {{ i.post.author }}
+                            <!-- Comment text -->
+                                <!-- Figure out how to shorten preview -->
+                            <div class="container-sm">
+                                {{ i.content }}<br>
+                            </div>
                         </p>
                         <a class="btn btn-outline-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Post</a>
                     </div>
@@ -39,26 +43,36 @@
             {% else %}
                 <p>There are no comments.</p>
             {% endif %}
+        <!-- Link to all comments page -->
+        <a class="btn btn-primary" href="/comments" role="button">View All Comments</a>
         </div>
     </p>
 
     <!-- All / Saved Blogs -->
     <!-- This should ONLY be saved blogs in the final version; the first 3~5 blogs -->
     <p>
-        <h2>All Blogs</h2>
+        <h2>Blogs</h2>
         <div class="p-2 container-fluid border rounded">
             <p>
                 {% if blog_list %}
                     <ul class="list-group list-group-horizontal">
                         {% for i in blog_list %}
-                        <li class="list-group-item p-2">
-                            <p>
-                                <strong>Blog Name:</strong> {{ i.name }}<br>
-                                <strong>Author:</strong> {{ i.author }}<br>
-                            </p>
-                            <p>
-                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{ i.id }}" role="button">View</a>
-                            </p>
+                        <!-- Actual Blog -->
+                        <li class="list-group-item p-0 border-0">
+                            <div class="p-2 container-sm border rounded">
+                                <p>
+                                    <strong>Blog Name:</strong> {{ i.name }}<br>
+                                    <strong>Author:</strong> {{ i.author }}<br>
+                                </p>
+                                <p>
+                                    <a class="btn btn-outline-primary btn-sm" href="/blog/{{ i.id }}" role="button">View Blog</a>
+                                </p>
+                            </div>
+                        </li>
+
+                        <!-- Spacer -->
+                        <li class="list-group-item p-0 border-0">
+                            &nbsp
                         </li>
                         {% endfor %}
                     </ul>
@@ -67,10 +81,10 @@
                 {% endif %}
             </p>
 
-            <p>
-                <!-- Edit later to go to saved blogs -->
-                <a class="btn btn-outline-primary" href="all" role="button">View All</a>
-            </p>
+            <!-- Link to all blogs -->
+            <!-- Edit later to go to saved blogs -->
+            <a class="btn btn-primary" href="blogs" role="button">View All Blogs</a>
+            
         </div>
     </p>
 </div>

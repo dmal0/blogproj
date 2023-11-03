@@ -23,11 +23,11 @@ def index(request):
 # Dashboard
 def dashboard(request):
     # Comments list
-    comment_list = Comment.objects.all()
+    comment_list = Comment.objects.all().order_by('-id')[:3]  # Reverse newest order; only show up to 3
     print("all comments query set", comment_list)
 
     # Blogs list
-    blog_list = Blog.objects.all()
+    blog_list = Blog.objects.all()[:5] # Only show up to 5
     print("all blogs query set", blog_list)
 
     # Render dashboard.html
@@ -53,7 +53,7 @@ class BlogDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post_list'] = Post.objects.filter(blog=self.object).reverse()
+        context['post_list'] = Post.objects.filter(blog=self.object).order_by('-id') # Reverse newest order
         return context
 
 ############################################################################################
@@ -129,6 +129,35 @@ def createComment(request, blog_id, pk):
     context = {'form': form}
     return render(request, 'blog_app/comment_form.html', context)
 
+# Update Comment
+    # Comments should not be able to be edited unless the user is logged in
+    # Then, the comment would ideally be associated with their author ID
+def updateComment(request, blog_id, post_id, pk):
+    comment = Comment.objects.get(pk=pk)
+    form = CommentForm(request.POST or None, instance=comment)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+
+            return redirect('post-detail', blog_id, post_id)
+        
+    context = {'form': form}
+    return render(request, 'blog_app/update_comment.html', context)
+
+# Delete Comment
+def deleteComment(request, blog_id, post_id, pk):
+    comment = Comment.objects.get(pk=pk)
+    
+    if request.method == 'POST':
+        comment.delete()
+
+        # Redirect back to the post detail page
+        return redirect('post-detail', blog_id, post_id)
+
+    context = {'comment': comment}
+    return render(request, 'blog_app/delete_comment.html', context)
+
 ############################################################################################
 # Management and settings
 ############################################################################################
@@ -136,7 +165,14 @@ def createComment(request, blog_id, pk):
 # Logged-in user's post management page
 def managePosts(request):
     # Render relevant template
-    return render( request, 'blog_app/manage_posts.html')
+    #return render( request, 'blog_app/manage_posts.html')
+
+    # TEMP - Only goes to Blog 1 (Loe's Blog) for Sprint 1
+    post_list = Post.objects.filter(blog_id='1').order_by('-id')
+    print("all posts query set", post_list)
+
+    # Render dashboard.html
+    return render( request, 'blog_app/manage_posts.html', {'post_list':post_list})
 
 # Logged-in user's settings for account and blog
 def settings(request):
@@ -144,7 +180,7 @@ def settings(request):
     return render( request, 'blog_app/settings.html')
 
 ############################################################################################
-# Blog lists
+# Blog and comment lists
 ############################################################################################
 
 # Logged-in user's saved blogs
@@ -160,3 +196,21 @@ def allBlogs(request):
 
     # Render dashboard.html
     return render( request, 'blog_app/all_blogs.html', {'blog_list':blog_list})
+
+# All comments
+def allComments(request):
+    # Comments list
+    comment_list = Comment.objects.all()
+    print("all comments query set", comment_list)
+
+    # Render dashboard.html
+    return render( request, 'blog_app/all_comments.html', {'comment_list':comment_list})
+
+# All posts
+def allPosts(request):
+    # Posts list
+    post_list = Post.objects.all().order_by('-id')
+    print("all posts query set", post_list)
+
+    # Render dashboard.html
+    return render( request, 'blog_app/all_posts.html', {'post_list':post_list})

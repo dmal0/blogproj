@@ -8,12 +8,32 @@
 
     <!-- Posts -->
     <p>
-        <div class="p-2 container-fluid border rounded">
-            <p>This will be a list of my posts; this should be filled using a model.</p>
-            <p>Each post should be listed by title and date; this should be done using a model.</p>
-            <p>There should be a view, edit, and delete button for each post.</p>
-        </div>
-    </p>
+        {% if post_list %}
+            {% for i in post_list %}
+            <p>
+                <!-- Post -->
+                <div class="p-2 container-sm border rounded">
+                <p>
+                    <!-- Title / Post Data -->
+                    <strong>Title:</strong> {{ i.title }}
+                                    
+                    <!-- Post text -->
+                        <!-- Figure out how to shorten preview -->
+                    <div class="container-sm">
+                        {{ i.content }}
+                    </div>
+                </p>
 
+                <!-- Buttons: View, Edit, Delete -->
+                <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Post</a>
+                <a class="btn btn-primary btn-sm" href="#" role="button">Edit</a>
+                <a class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
+                </div>
+            </p>
+            {% endfor %}
+        {% else %}
+            <p>There are no comments.</p>
+        {% endif %}
+    </p>
 </div>
 {% endblock %}
