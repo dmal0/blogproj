@@ -41,7 +41,9 @@
                                     </p>
                                 </div>
                         </p>
-                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Post</a>
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-outline-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Post</a>
+                        </div>
                     </div>
                 </p>
                 {% endfor %}
@@ -49,7 +51,9 @@
                 <p>There are no comments.</p>
             {% endif %}
         <!-- Link to all comments page -->
-        <a class="btn btn-primary" href="/comments" role="button">View All Comments</a>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary" href="/comments" role="button">View All Comments</a>
+        </div>
         </div>
     </p>
 
@@ -77,9 +81,9 @@
                                     <h4>{{ i.name }}</h4>
                                     by {{ i.author }}<br>
                                 </p>
-                                <p>
+                                <div class="d-flex justify-content-end">
                                     <a class="btn btn-outline-primary btn-sm" href="/blog/{{ i.id }}" role="button">View Blog</a>
-                                </p>
+                                </div>
                             </div>
                         </li>
 
@@ -96,7 +100,9 @@
 
             <!-- Link to all blogs -->
             <!-- Edit later to go to saved blogs -->
-            <a class="btn btn-primary" href="blogs" role="button">View All Blogs</a>
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" href="blogs" role="button">View All Blogs</a>
+            </div>
             
         </div>
     </p>

@@ -21,11 +21,11 @@
 
                         <!-- Post image, if present -->
                         {% if post.image %}
-                        <p><img src="{{post.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-height:300px"></p>
+                        <p><img src="{{post.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-height:20em"></p>
                         {% endif %}
 
                         <!-- Post content -->
-                        <p>{{ post.content}}</p>
+                        <p>{{ post.content | linebreaks }}</p>
 
                         <!-- Buttons: View, Edit, Delete -->
                             <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
@@ -42,7 +42,7 @@
                             
                             <!-- Edit post -->
                             <li class="list-group-item p-0 border-0">
-                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/edit" role="button">Edit</a>
+                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/edit" role="button">Edit Post</a>
                             </li>
 
                             <!-- Spacer -->
@@ -52,7 +52,7 @@
 
                             <!-- Delete post -->
                             <li class="list-group-item p-0 border-0">
-                                <a class="btn btn-outline-danger btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
+                                <a class="btn btn-outline-danger btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/delete" role="button">Delete Post</a>
                             </li>
                         </ul>
                     </div>
@@ -87,12 +87,14 @@
                         </div>
                     </p>
                     
+                    {% if blog.author.profile %}
                     <h5>Profile</h5>
                     <p>
                         <div class="container-sm">
-                            {{ blog.author.profile }}
+                            {{ blog.author.profile | linebreaks }}
                         </div>
                     </p>
+                    {% endif %}
                 </div>
             </p>
         </div>

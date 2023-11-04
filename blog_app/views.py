@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import Author, Blog, Post, Comment
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, AuthorForm, BlogForm
 from django.urls import reverse
 
 # Create your views here.
@@ -209,10 +209,39 @@ def managePosts(request):
     # Render dashboard.html
     return render( request, 'blog_app/manage_posts.html', {'post_list':post_list})
 
-# Logged-in user's settings for account and blog
-def settings(request):
+# Logged-in user's account settings
+def updateAccount(request, author_id):
     # Render relevant template
-    return render( request, 'blog_app/settings.html')
+    #return render( request, 'blog_app/update_account.html')
+
+    author = Author.objects.get(pk=author_id)
+    form = AuthorForm(request.POST or None, instance=author)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+
+            return redirect('index')
+        
+    context = {'form': form}
+    return render(request, 'blog_app/update_account.html', context)
+
+# Logged-in user's blog settings
+def updateBlog(request, blog_id):
+    # Render relevant template
+    #return render( request, 'blog_app/update_blog.html')
+    
+    blog = Blog.objects.get(pk=blog_id)
+    form = BlogForm(request.POST or None, instance=blog)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+
+            return redirect('index')
+        
+    context = {'form': form}
+    return render(request, 'blog_app/update_blog.html', context)
 
 ############################################################################################
 # Blog and comment lists

@@ -13,23 +13,35 @@
             <p>
                 <!-- Post -->
                 <div class="p-2 container-sm border rounded">
-                <p>
-                    <!-- Title / Post Data -->
-                    <strong>Title:</strong> {{ i.title }}
-                                    
-                    <!-- Post text -->
-                        <!-- Figure out how to shorten preview -->
-                    <div class="container-sm rounded bg-light">
-                        <p class="p-2">
-                            {{ i.content }}
-                        </p>
+                    <div class="row">
+                        <!-- Post data -->
+                        {% if i.image.image %}<div class="col-9">{% else %}<div class="col">{% endif %}
+                            <h2>{{ i.title }}</h2>
+                            <p>
+                                <!-- Post text -->
+                                    <!-- Figure out how to shorten preview -->
+                                <div class="container-sm rounded bg-light">
+                                    <p class="p-2">
+                                        {{ i.content }}
+                                    </p>
+                                </div>
+                            </p>
+                        </div>
+                        <!-- Post image, if present -->
+                        {% if i.image %}
+                        <div class="col-3">
+                            <p><img src="{{i.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-height:10em;"></p>
+                        </div>
+                        {% endif %}
                     </div>
-                </p>
-
-                <!-- Buttons: View, Edit, Delete -->
-                <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Post</a>
-                <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/edit" role="button">Edit</a>
-                <a class="btn btn-danger btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/delete" role="button">Delete</a>
+                    <div class="d-flex justify-content-end">
+                        <!-- Buttons: View, Edit, Delete -->
+                        <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Post</a>
+                        &nbsp
+                        <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/edit" role="button">Edit Post</a>
+                        &nbsp
+                        <a class="btn btn-danger btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/delete" role="button">Delete Post</a>
+                    </div>
                 </div>
             </p>
             {% endfor %}

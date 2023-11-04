@@ -47,13 +47,13 @@ urlpatterns = [
     ##################################################################################################
 
     # Create new comment on a post
-    path('blog/<int:blog_id>/post/<int:pk>/new_comment', views.createComment, name='create_comment'),
+    path('blog/<int:blog_id>/post/<int:pk>/comment/new', views.createComment, name='create_comment'),
 
     # Update comment on post
-    path('blog/<int:blog_id>/post/<int:post_id>/update_comment/<int:pk>', views.updateComment, name='update_comment'),
+    path('blog/<int:blog_id>/post/<int:post_id>/comment/<int:pk>/edit', views.updateComment, name='update_comment'),
 
     # Delete comment on post
-    path('blog/<int:blog_id>/post/<int:post_id>/delete_comment/<int:pk>', views.deleteComment, name='delete_comment'),
+    path('blog/<int:blog_id>/post/<int:post_id>/comment/<int:pk>/delete', views.deleteComment, name='delete_comment'),
 
     ##################################################################################################
     # Management and settings
@@ -62,8 +62,13 @@ urlpatterns = [
     # Path to logged-in user's post management page
     path('manage', views.managePosts, name='manage_posts'),
 
-    # Path to logged-in user's settings for their account and blog
-    path('settings', views.settings, name='settings'),
+    # Path to logged-in user's account settings
+        # Final version ideally should work without blog_id
+    path('settings/account/<int:author_id>', views.updateAccount, name='update_account'),
+
+    # Path to logged-in user's account settings
+        # Final version ideally should work without blog_id
+    path('settings/blog/<int:blog_id>', views.updateBlog, name='update_blog'),
 
     ##################################################################################################
     # Blog and comment lists

@@ -22,7 +22,13 @@
                                 </p>
                             </div>
                         </p>
-                        <a class="btn btn-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Post</a>
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Full Post</a>
+                            &nbsp
+                            <a class="btn btn-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}/comment/{{i.id}}/edit" role="button">Edit Comment</a>
+                            &nbsp
+                            <a class="btn btn-danger btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}/comment/{{i.id}}/delete" role="button">Delete Comment</a>
+                        </div>
                     </div>
                 </p>
                 {% endfor %}

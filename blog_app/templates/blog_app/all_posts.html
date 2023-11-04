@@ -11,7 +11,7 @@
                     <div class="p-2 container-sm border rounded">
                         <div class="row">
                             <!-- Post data -->
-                            <div class="col-9">
+                            {% if i.image.image %}<div class="col-9">{% else %}<div class="col">{% endif %}
                                 <h2>{{ i.title }}</h2>
                                 <p>
                                     by {{ i.blog.author }} from {{ i.blog.name }}
@@ -26,13 +26,19 @@
                                 </p>
                             </div>
                             <!-- Post image, if present -->
+                            {% if i.image %}
                             <div class="col-3">
-                                {% if i.image %}
-                                <p><img src="{{i.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-height:150px;"></p>
-                                {% endif %}
+                                <p><img src="{{i.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-height:10em;"></p>
                             </div>
+                            {% endif %}
                         </div>
-                        <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Post</a>
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Full Post</a> 
+                            &nbsp
+                            <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/edit" role="button">Edit Post</a>
+                            &nbsp
+                            <a class="btn btn-danger btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/delete" role="button">Delete Post</a>
+                        </div>
                     </div>
                 </p>
                 {% endfor %}

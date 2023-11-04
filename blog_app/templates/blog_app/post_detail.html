@@ -24,7 +24,7 @@
                     {% endif %}
 
                     <!-- Post content -->
-                    <p>{{ post.content }}</p>
+                    <p>{{ post.content | linebreaks }}</p>
 
                     <!-- Buttons: Edit, Delete -->
                         <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
@@ -64,7 +64,7 @@
                                 <ul class="list-group list-group-horizontal d-flex justify-content-end">
                                     <!-- Update (Edit) comment --> 
                                     <li class="list-group-item p-0 border-0">
-                                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/update_comment/{{comment.id}}" role="button">Edit</a>
+                                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/{{comment.id}}/edit" role="button">Edit</a>
                                     </li>
 
                                     <!-- Spacer -->
@@ -74,7 +74,7 @@
 
                                     <!-- Delete comment --> 
                                     <li class="list-group-item p-0 border-0">
-                                        <a class="btn btn-outline-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete_comment/{{comment.id}}" role="button">Delete</a>
+                                        <a class="btn btn-outline-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/{{comment.id}}/delete" role="button">Delete</a>
                                     </li>
                             </div>
                         </p>
@@ -88,7 +88,7 @@
                     {% endif %}
                     <!-- Button for making new comments -->
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/new_comment" role="button">New Comment</a>
+                        <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/new" role="button">New Comment</a>
                     </div>
                 </div>
             </p>
@@ -119,12 +119,14 @@
                         </div>
                     </p>
                     
+                    {% if blog.author.profile %}
                     <h5>Profile</h5>
                     <p>
                         <div class="container-sm">
-                            {{ post.blog.author.profile }}
+                            {{ post.blog.author.profile | linebreaks }}
                         </div>
                     </p>
+                    {% endif %}
                 </div>
             </p>
         </div>
