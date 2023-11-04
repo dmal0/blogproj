@@ -21,8 +21,8 @@
 
                     <!-- Buttons: Edit, Delete -->
                         <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
-                    <a class="btn btn-primary btn-sm" href="#" role="button">Edit</a>
-                    <a class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
+                    <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/edit" role="button">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
                 </div>
             </p>
 
@@ -61,7 +61,7 @@
 
             <!-- Back button -->
             <p>
-                <a class="btn btn-outline-primary " href="/blog/{{post.blog.id}}" role="button">≪ Back</a>
+                <a class="btn btn-outline-primary " href="/blog/{{post.blog.id}}" role="button">≪ Back to Blog</a>
             </p>
         </div>
 

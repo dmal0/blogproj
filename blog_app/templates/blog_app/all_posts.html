@@ -11,12 +11,14 @@
                     <div class="p-2 container-sm border rounded">
                         <h2>{{ i.title }}</h2>
                         <p>
-                            by {{ i.author }}
+                            by {{ i.blog.author }} from {{ i.blog.name }}
                             
                             <!-- Post text -->
                                 <!-- Figure out how to shorten preview -->
-                            <div class="container-sm">
-                                {{ i.content }}<br>
+                            <div class="container-sm rounded bg-light">
+                                <p class="p-2">
+                                    {{ i.content }}
+                                </p>
                             </div>
                         </p>
                         <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Post</a>

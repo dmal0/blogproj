@@ -30,11 +30,17 @@ urlpatterns = [
     # Post Detail viewing + CRUD
     ##################################################################################################
 
-    # Path to any user's post
+    # View details for any user's post
     path('blog/<int:blog_id>/post/<int:pk>', views.PostDetailView.as_view(), name='post-detail'),
 
-    # Path to create new post
+    # Create new post
     path('blog/<int:blog_id>/new_post', views.createPost, name='create_post'),
+
+    # Update (edit) post
+    path('blog/<int:blog_id>/post/<int:pk>/edit', views.updatePost, name='update_post'),
+
+    # Delete post
+    path('blog/<int:blog_id>/post/<int:pk>/delete', views.deletePost, name='delete_post'),
 
     ##################################################################################################
     # Comment CRUD

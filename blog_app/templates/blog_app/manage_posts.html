@@ -19,15 +19,17 @@
                                     
                     <!-- Post text -->
                         <!-- Figure out how to shorten preview -->
-                    <div class="container-sm">
-                        {{ i.content }}
+                    <div class="container-sm rounded bg-light">
+                        <p class="p-2">
+                            {{ i.content }}
+                        </p>
                     </div>
                 </p>
 
                 <!-- Buttons: View, Edit, Delete -->
                 <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Post</a>
-                <a class="btn btn-primary btn-sm" href="#" role="button">Edit</a>
-                <a class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
+                <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/edit" role="button">Edit</a>
+                <a class="btn btn-danger btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/delete" role="button">Delete</a>
                 </div>
             </p>
             {% endfor %}

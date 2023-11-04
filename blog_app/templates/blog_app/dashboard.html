@@ -9,7 +9,7 @@
     <!-- Top buttons -->
     <p>
         <!-- FOR SPRINT 1: This makes a post on Blog 1 (Loe's Blog) by default -->
-        <a class="btn btn-primary" href="/new_post" role="button">New Post</a> 
+        <a class="btn btn-primary" href="/blog/1/new_post" role="button">New Post</a> 
         
         <!-- FOR SPRINT 1: This manages Blog 1 (Loe's Blog) by default -->
         <a class="btn btn-primary" href="/manage" role="button">Manage Posts</a> 
@@ -32,9 +32,11 @@
                             <strong>On:</strong> "{{ i.post.title }}" by {{ i.post.author }}
                             <!-- Comment text -->
                                 <!-- Figure out how to shorten preview -->
-                            <div class="container-sm">
-                                {{ i.content }}<br>
-                            </div>
+                                <div class="container-sm rounded bg-light">
+                                    <p class="p-2">
+                                        {{ i.content }}
+                                    </p>
+                                </div>
                         </p>
                         <a class="btn btn-outline-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Post</a>
                     </div>
@@ -61,8 +63,8 @@
                         <li class="list-group-item p-0 border-0">
                             <div class="p-2 container-sm border rounded">
                                 <p>
-                                    <strong>Blog Name:</strong> {{ i.name }}<br>
-                                    <strong>Author:</strong> {{ i.author }}<br>
+                                    <h4>{{ i.name }}</h4>
+                                    by {{ i.author }}<br>
                                 </p>
                                 <p>
                                     <a class="btn btn-outline-primary btn-sm" href="/blog/{{ i.id }}" role="button">View Blog</a>

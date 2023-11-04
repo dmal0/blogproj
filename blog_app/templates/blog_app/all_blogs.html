@@ -12,8 +12,9 @@
             <li class="list-group-item p-0 border-0">
                 <div class="p-2 container-sm border rounded">
                     <p>
-                        <strong>Blog Name:</strong> {{ i.name }}<br>
-                        <strong>Author:</strong> {{ i.author }}<br>
+                        <!-- Show blog author icon in final version -->
+                        <h4>{{ i.name }}</h4>
+                        by {{ i.author }}<br>
                     </p>
                     <p>
                         <a class="btn btn-primary" href="/blog/{{ i.id }}" role="button">View Blog</a>

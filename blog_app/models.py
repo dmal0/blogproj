@@ -38,12 +38,15 @@ class Blog(models.Model):
 
 # Blog Post
 class Post(models.Model):
-    title = models.CharField(max_length=100, default="Untitled")
+    title = models.CharField(max_length=100, default="", blank=True)
     content = models.TextField()
     # One-to-Many Blog-Post relationship; Blog has many Posts, Posts belong to one Blog
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=None)
     # One-to-Many Author-Post relationship; Author has many Posts, Posts belong to one Author
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, default=None)
+    # Removed this so posts could be created; it was redundant because
+    # posts belong to blogs, and blogs have authors
+    #author = models.CharField(max_length=100, default="", blank=True)
+    #author = models.ForeignKey(Author, on_delete=models.CASCADE, default=None)
     
     # Define default String to return the name for representing the Model object.
     def __str__(self):

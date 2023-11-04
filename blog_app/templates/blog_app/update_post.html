@@ -7,9 +7,9 @@
 
 <div class="container-lg">
 
-    <p><h1>New Post</h1></p>
+    <p><h1>Edit Post</h1></p>
     
-    <!-- New Post Form -->
+    <!-- Edit Post Form -->
     <form action="" method="POST">
         {% csrf_token %}
         
@@ -19,13 +19,13 @@
             {{ form.as_table }}
             </table>
         </p>
-
+        
         <!-- Cancel button -->
-            <!-- Leads to Index for now until I can figure out redirecting back to blog -->
+            <!-- Leads to Index for now until I can figure out redirecting back to post -->
         <a class="btn btn-danger" href="/" role="button">Cancel</a>
 
         <!-- Submit button -->
-        <input class="btn btn-primary" type="submit" name="Submit">        
+        <input class="btn btn-primary" type="submit" name="Submit">
     </form>
 
 </div>

@@ -73,19 +73,16 @@ class PostDetailView(generic.DetailView):
 ############################################################################################
 
 # Create Post
+    # Only the owner (Author) of a Blog should be able to make
+    # posts on that Blog
 def createPost(request, blog_id):
     form = PostForm()
     blog = Blog.objects.get(pk=blog_id)
-    author_name = Blog._meta.get_field('author')
-    author = Author.objects.filter(name=author_name).get_absolute_url()
-    
 
     if request.method == 'POST':
-        # Create a new dictionary with form data and blog_id
+        # Create a new dictionary with form data and blog_id and author_id
         post_data = request.POST.copy()
         post_data['blog_id'] = blog_id
-        post_data['author_id'] = author
-        # NEED: !!!!!!!!!! ADD AUTHOR ID !!!!!!!!!!
         
         form = PostForm(post_data)
         if form.is_valid():
@@ -100,6 +97,37 @@ def createPost(request, blog_id):
 
     context = {'form': form}
     return render(request, 'blog_app/post_form.html', context)
+
+# Update Post
+    # Only the owner (Author) of the Blog to which the Post belongs should be
+    # able to update/edit the posts on that Blog
+def updatePost(request, blog_id, pk):
+    post = Post.objects.get(pk=pk)
+    form = PostForm(request.POST or None, instance=post)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+
+            return redirect('post-detail', blog_id, pk)
+        
+    context = {'form': form}
+    return render(request, 'blog_app/update_post.html', context)
+
+# Delete Post
+    # Only the owner (Author) of the Blog to which the Post belongs should be
+    # able to delete the posts on that Blog
+def deletePost(request, blog_id, pk):
+    post = Post.objects.get(pk=pk)
+    
+    if request.method == 'POST':
+        post.delete()
+
+        # Redirect back to the blog detail page
+        return redirect('blog-detail', blog_id)
+
+    context = {'post': post}
+    return render(request, 'blog_app/delete_post.html', context)
 
 ############################################################################################
 # Comment CRUD
@@ -132,6 +160,7 @@ def createComment(request, blog_id, pk):
 # Update Comment
     # Comments should not be able to be edited unless the user is logged in
     # Then, the comment would ideally be associated with their author ID
+    # Commenters should only be able to update/edit their own comments
 def updateComment(request, blog_id, post_id, pk):
     comment = Comment.objects.get(pk=pk)
     form = CommentForm(request.POST or None, instance=comment)
@@ -146,6 +175,9 @@ def updateComment(request, blog_id, post_id, pk):
     return render(request, 'blog_app/update_comment.html', context)
 
 # Delete Comment
+    # Comments should not be able to be edited unless the user is logged in
+    # Blog owners (Authors) should be able to delete any comment;
+    # Non-Blog owners should only be able to delete their own comments
 def deleteComment(request, blog_id, post_id, pk):
     comment = Comment.objects.get(pk=pk)
     
@@ -200,7 +232,7 @@ def allBlogs(request):
 # All comments
 def allComments(request):
     # Comments list
-    comment_list = Comment.objects.all()
+    comment_list = Comment.objects.all().order_by('-id') # Reverse newest order
     print("all comments query set", comment_list)
 
     # Render dashboard.html

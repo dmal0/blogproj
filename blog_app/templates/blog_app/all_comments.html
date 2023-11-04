@@ -10,12 +10,16 @@
                 <p>
                     <div class="p-2 container-sm border rounded">
                         <p>
+                            <!-- Comment data -->
                             <strong>From:</strong> {{ i.commenter }}<br>
-                            <strong>On:</strong> "{{ i.post.title }}" by {{ i.post.author }}
+                            <strong>On:</strong> "{{ i.post.title }}" by {{ i.post.blog.author }}
+                            
                             <!-- Comment text -->
                                 <!-- Figure out how to shorten preview -->
                             <div class="container-sm rounded bg-light">
-                                {{ i.content }}<br>
+                                <p class="p-2">
+                                    {{ i.content }}
+                                </p>
                             </div>
                         </p>
                         <a class="btn btn-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Post</a>

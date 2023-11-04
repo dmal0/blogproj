@@ -23,8 +23,8 @@
                         <!-- Buttons: View, Edit, Delete -->
                             <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
                         <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}" role="button">View Post</a>
-                        <a class="btn btn-outline-primary btn-sm" href="#" role="button">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" href="#" role="button">Delete</a>
+                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/edit" role="button">Edit</a>
+                        <a class="btn btn-outline-danger btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
                     </div>
                 </p>
                 {% endfor %}
