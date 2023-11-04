@@ -10,6 +10,7 @@ class Author(models.Model):
     username = models.CharField(max_length=200) # I don't think I want this to be changeable
     email = models.CharField(max_length=200, default=None)
     profile = models.TextField(blank = True)
+    image = models.ImageField(upload_to="images/authors/", null=True, blank=True, default="")
     # One-to-One Blog-Author relationship; Author has one Blog, Blog has one Author
     #blog = models.OneToOneField(Blog, on_delete=models.CASCADE, unique=True, default = None)
 

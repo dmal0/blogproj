@@ -71,7 +71,14 @@
         <div class="col-4">
             <p>
                 <div class="p-2 container-fluid border rounded">
-                    <img src="{% static 'images/icontemp.png' %}" class="img-fluid border rounded w-50 mx-auto d-block">
+                    <!-- Author image; custom or default -->
+                    {% if blog.author.image %}
+                        <img src="{{blog.author.image.url}}" class="img-fluid border rounded w-50 mx-auto d-block">
+                    {% else %}
+                        <img src="{% static 'images/icondefault.png' %}" class="img-fluid border rounded w-50 mx-auto d-block">
+                    {% endif %}
+
+                    <!-- About section -->
                     <h4>About</h4>
                     <h5>Author</h5>
                     <p>
