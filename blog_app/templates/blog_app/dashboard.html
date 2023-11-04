@@ -29,7 +29,7 @@
                     <div class="p-2 container-sm border rounded">
                         <p>
                             <strong>From:</strong> {{ i.commenter }}<br>
-                            <strong>On:</strong> "{{ i.post.title }}" by {{ i.post.author }}
+                            <strong>On:</strong> {% if i.post.title == "" %}Untitled post{% else %}"{{ i.post.title }}"{% endif %} by {{ i.post.blog.author }}
                             <!-- Comment text -->
                                 <!-- Figure out how to shorten preview -->
                                 <div class="container-sm rounded bg-light">

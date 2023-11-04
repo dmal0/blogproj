@@ -12,7 +12,7 @@
                         <p>
                             <!-- Comment data -->
                             <strong>From:</strong> {{ i.commenter }}<br>
-                            <strong>On:</strong> "{{ i.post.title }}" by {{ i.post.blog.author }}
+                            <strong>On:</strong> {% if i.post.title == "" %}Untitled post{% else %}"{{ i.post.title }}"{% endif %} by {{ i.post.blog.author }}
                             
                             <!-- Comment text -->
                                 <!-- Figure out how to shorten preview -->
