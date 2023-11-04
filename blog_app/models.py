@@ -40,8 +40,11 @@ class Blog(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100, default="", blank=True)
     content = models.TextField()
+    image = models.ImageField(upload_to="images/", null=True, blank=True, default="")
+    
     # One-to-Many Blog-Post relationship; Blog has many Posts, Posts belong to one Blog
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=None)
+    
     # One-to-Many Author-Post relationship; Author has many Posts, Posts belong to one Author
     # Removed this so posts could be created; it was redundant because
     # posts belong to blogs, and blogs have authors

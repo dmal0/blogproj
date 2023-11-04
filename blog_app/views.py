@@ -76,16 +76,18 @@ class PostDetailView(generic.DetailView):
     # Only the owner (Author) of a Blog should be able to make
     # posts on that Blog
 def createPost(request, blog_id):
-    form = PostForm()
+    form = PostForm(request.POST, request.FILES)
     blog = Blog.objects.get(pk=blog_id)
 
     if request.method == 'POST':
-        # Create a new dictionary with form data and blog_id and author_id
-        post_data = request.POST.copy()
-        post_data['blog_id'] = blog_id
+        form = PostForm(request.POST, request.FILES)
         
-        form = PostForm(post_data)
-        if form.is_valid():
+        ## Create a new dictionary with form data and blog_id and author_id
+        #post_data = request.POST.copy()
+        #post_data['blog_id'] = blog_id
+        
+        #form = PostForm(post_data)
+        if form.is_valid():            
             # Save the form without committing to the database
             post = form.save(commit=False)
             # Set the portfolio relationship
@@ -107,6 +109,7 @@ def updatePost(request, blog_id, pk):
 
     if request.method == 'POST':
         if form.is_valid():
+            form = PostForm(request.POST, request.FILES, instance=post)
             form.save()
 
             return redirect('post-detail', blog_id, pk)

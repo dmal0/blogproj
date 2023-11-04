@@ -17,12 +17,33 @@
                 <div class="p-2 container-fluid border rounded">
                     <!-- One specific post -->
                     <h2>{{ post.title }}</h2>
+                    
+                    <!-- Post image, if present -->
+                    {% if post.image %}
+                    <p><img src="{{post.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-width:75%;"></p>
+                    {% endif %}
+
+                    <!-- Post content -->
                     <p>{{ post.content }}</p>
 
                     <!-- Buttons: Edit, Delete -->
                         <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
-                    <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/edit" role="button">Edit</a>
-                    <a class="btn btn-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
+                    <ul class="list-group list-group-horizontal d-flex justify-content-end">
+                        <!-- Edit post -->
+                        <li class="list-group-item p-0 border-0">
+                            <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/edit" role="button">Edit</a>
+                        </li>
+
+                        <!-- Spacer -->
+                        <li class="list-group-item p-0 border-0">
+                            &nbsp
+                        </li>
+
+                        <!-- Delete post -->
+                        <li class="list-group-item p-0 border-0">
+                            <a class="btn btn-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
+                        </li>
+                    </ul>
                 </div>
             </p>
 
@@ -39,11 +60,22 @@
                                     {{ comment.content }}
                                 </p>
                                 
-                                <!-- Button for updating comments --> 
-                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/update_comment/{{comment.id}}" role="button">Edit</a>
+                                <!-- Buttons: Update (edit) and Delete -->
+                                <ul class="list-group list-group-horizontal d-flex justify-content-end">
+                                    <!-- Update (Edit) comment --> 
+                                    <li class="list-group-item p-0 border-0">
+                                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/update_comment/{{comment.id}}" role="button">Edit</a>
+                                    </li>
 
-                                <!-- Button for deleting comments --> 
-                                <a class="btn btn-outline-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete_comment/{{comment.id}}" role="button">Delete</a>
+                                    <!-- Spacer -->
+                                    <li class="list-group-item p-0 border-0">
+                                        &nbsp
+                                    </li>
+
+                                    <!-- Delete comment --> 
+                                    <li class="list-group-item p-0 border-0">
+                                        <a class="btn btn-outline-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete_comment/{{comment.id}}" role="button">Delete</a>
+                                    </li>
                             </div>
                         </p>
                         {% endfor %}
@@ -55,7 +87,9 @@
                         </p>
                     {% endif %}
                     <!-- Button for making new comments -->
-                    <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/new_comment" role="button">New Comment</a>
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/new_comment" role="button">New Comment</a>
+                    </div>
                 </div>
             </p>
 
