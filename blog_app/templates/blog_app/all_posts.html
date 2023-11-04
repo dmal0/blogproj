@@ -11,7 +11,7 @@
                     <div class="p-2 container-sm border rounded">
                         <div class="row">
                             <!-- Post data -->
-                            <div class="col-8">
+                            <div class="col-9">
                                 <h2>{{ i.title }}</h2>
                                 <p>
                                     by {{ i.blog.author }} from {{ i.blog.name }}
@@ -26,7 +26,7 @@
                                 </p>
                             </div>
                             <!-- Post image, if present -->
-                            <div class="col-4">
+                            <div class="col-3">
                                 {% if i.image %}
                                 <p><img src="{{i.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-height:150px;"></p>
                                 {% endif %}
