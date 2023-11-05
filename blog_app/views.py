@@ -150,11 +150,11 @@ def createComment(request, blog_id, pk):
         if form.is_valid():
             # Save the form without committing to the database
             comment = form.save(commit=False)
-            # Set the portfolio relationship
+            # Set the post relationship
             comment.post = post_id
             comment.save()
 
-            # Redirect back to the portfolio detail page
+            # Redirect back to the post detail page
             return redirect('post-detail', blog_id, pk)
 
     context = {'form': form}
@@ -258,7 +258,7 @@ def allBlogs(request):
     blog_list = Blog.objects.all()
     print("all blogs query set", blog_list)
 
-    # Render dashboard.html
+    # Render all_blogs.html
     return render( request, 'blog_app/all_blogs.html', {'blog_list':blog_list})
 
 # All comments
@@ -267,7 +267,7 @@ def allComments(request):
     comment_list = Comment.objects.all().order_by('-id') # Reverse newest order
     print("all comments query set", comment_list)
 
-    # Render dashboard.html
+    # Render all_comments.html
     return render( request, 'blog_app/all_comments.html', {'comment_list':comment_list})
 
 # All posts
@@ -276,5 +276,5 @@ def allPosts(request):
     post_list = Post.objects.all().order_by('-id')
     print("all posts query set", post_list)
 
-    # Render dashboard.html
+    # Render all_posts.html
     return render( request, 'blog_app/all_posts.html', {'post_list':post_list})
