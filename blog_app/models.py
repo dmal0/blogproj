@@ -33,6 +33,7 @@ class Blog(models.Model):
     THEME = (
         ('None', 'None'),
         ('BO', 'Blood Orange'),
+        ('LL', 'Lemon Lime'),
     )
 
     # Fields

@@ -18,12 +18,19 @@
             color: #4f0c06;
             background-color: #FF8A68 !important;
         {% endif %}
+        {% if blog.theme == 'LL' %}
+            background-color: #b1f53d !important;
+        {% endif %}
     }
 
     .roundFill {
         {% if blog.theme == 'BO' %}
             background-color: #FFF0CE !important;
             border:1px solid #df2c20 !important;
+        {% endif %}
+        {% if blog.theme == 'LL' %}
+            background-color: #ebfcb8 !important;
+            border:1px solid #35942D !important;
         {% endif %}
     }
 
@@ -32,11 +39,18 @@
             background-color: #FAB99D !important;
             border:1px solid #df2c20 !important;
         {% endif %}
+        {% if blog.theme == 'LL' %}
+            background-color: #D2EF98 !important;
+            border:1px solid #35942D !important;
+        {% endif %}
     }
 
     .roundBG {
         {% if blog.theme == 'BO' %}
             background-color: #FFF0CE !important;
+        {% endif %}
+        {% if blog.theme == 'LL' %}
+            background-color: #ebfcb8 !important;
         {% endif %}
     }
 
@@ -45,14 +59,23 @@
             color: #E40F06 !important;
             border:1px solid #E40F06 !important;
         {% endif %}
+        {% if blog.theme == 'LL' %}
+            color: #35942D !important;
+            border:1px solid #35942D !important;
+        {% endif %}
     }
 
     .roundBtnPrimaryOL:hover {
-        {% if blog.theme == 'BO' %}
         /* Same as roundBtnPrimary */
+        {% if blog.theme == 'BO' %}
             color: white !important;
             background-color: #E40F06 !important;
             border:1px solid #E40F06 !important;
+        {% endif %}
+        {% if blog.theme == 'LL' %}
+            color: white !important;
+            background-color: #35942D !important;
+            border:1px solid #35942D !important;
         {% endif %}
     }
 
@@ -78,6 +101,11 @@
             background-color: #E40F06 !important;
             border:1px solid #E40F06 !important;
         {% endif %}
+        {% if blog.theme == 'LL' %}
+            color: white !important;
+            background-color: #35942D !important;
+            border:1px solid #35942D !important;
+        {% endif %}
     }
 
     .roundBtnDanger {
@@ -91,6 +119,9 @@
     .roundImg {
         {% if blog.theme == 'BO' %}
             border:1px solid #df2c20 !important;
+        {% endif %}
+        {% if blog.theme == 'LL' %}
+            border:1px solid #35942D !important;
         {% endif %}
     }
 </style>
