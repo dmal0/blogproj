@@ -35,25 +35,28 @@
                                 <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}" role="button">View Full Post</a>
                             </li>
                             
-                            <!-- Spacer -->
-                            <li class="list-group-item p-0 border-0">
-                                &nbsp
-                            </li>
-                            
-                            <!-- Edit post -->
-                            <li class="list-group-item p-0 border-0">
-                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/edit" role="button">Edit Post</a>
-                            </li>
+                            <!-- Post controls; only show if logged in -->
+                            {% if user.is_authenticated and user.id == blog.user.id %}
+                                <!-- Spacer -->
+                                <li class="list-group-item p-0 border-0">
+                                    &nbsp
+                                </li>
+                                
+                                <!-- Edit post -->
+                                <li class="list-group-item p-0 border-0">
+                                    <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/edit" role="button">Edit Post</a>
+                                </li>
 
-                            <!-- Spacer -->
-                            <li class="list-group-item p-0 border-0">
-                                &nbsp
-                            </li>
+                                <!-- Spacer -->
+                                <li class="list-group-item p-0 border-0">
+                                    &nbsp
+                                </li>
 
-                            <!-- Delete post -->
-                            <li class="list-group-item p-0 border-0">
-                                <a class="btn btn-outline-danger btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/delete" role="button">Delete Post</a>
-                            </li>
+                                <!-- Delete post -->
+                                <li class="list-group-item p-0 border-0">
+                                    <a class="btn btn-outline-danger btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/delete" role="button">Delete Post</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </p>

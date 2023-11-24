@@ -20,9 +20,8 @@
             </table>
         </p>
 
-        <!-- Cancel button -->
-            <!-- Leads to Index for now until I can figure out redirecting back to blog -->
-        <a class="btn btn-danger" href="/" role="button">Cancel</a>
+        <!-- Cancel button; goes back to user's blog -->
+        <a class="btn btn-danger" href="{% url 'blog-detail' user.blog.id %}" role="button">Cancel</a>
 
         <!-- Submit button -->
         <input class="btn btn-primary" type="submit" name="Submit">        

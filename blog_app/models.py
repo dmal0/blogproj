@@ -1,16 +1,21 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 # Blog author (logged-in user)
 class Author(models.Model):
     # Fields
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, default="Anonymous")
     username = models.CharField(max_length=200) # I don't think I want this to be changeable
     email = models.CharField(max_length=200, default=None)
     profile = models.TextField(blank = True)
     image = models.ImageField(upload_to="images/authors/", null=True, blank=True, default="")
+    # Author relationship with user
+    # https://stackoverflow.com/questions/39527289/associating-users-with-models-django
+    #user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, unique=True)
+    
     # One-to-One Blog-Author relationship; Author has one Blog, Blog has one Author
     #blog = models.OneToOneField(Blog, on_delete=models.CASCADE, unique=True, default = None)
 
@@ -25,9 +30,11 @@ class Author(models.Model):
 # Blog (for logged-in user)
 class Blog(models.Model):
     # Fields
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, default="Untitled")
     # One-to-One Blog-Author relationship; Author has one Blog, Blog has one Author
-    author = models.OneToOneField(Author, on_delete=models.CASCADE, unique=True, default = None)
+    author = models.OneToOneField(Author, on_delete=models.CASCADE, unique=True, default="Anonymous")
+    # Same relationship for User
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, unique=True)
 
     #Define default String to return the name for representing the Model object."
     def __str__(self):
@@ -44,7 +51,10 @@ class Post(models.Model):
     image = models.ImageField(upload_to="images/", null=True, blank=True, default="")
     
     # One-to-Many Blog-Post relationship; Blog has many Posts, Posts belong to one Blog
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=None)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=None, related_name='blogPosts')
+
+    # Same relationship for User
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, default=None)
     
     # One-to-Many Author-Post relationship; Author has many Posts, Posts belong to one Author
     # Removed this so posts could be created; it was redundant because

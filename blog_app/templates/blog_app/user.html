@@ -1,0 +1,103 @@
+<!-- inherit from base.html -->
+{% extends "blog_app/base_template.html" %}
+
+<!-- For displaying images -->
+{% load static %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<div class="container-lg">
+    <p><h1>{{ blog.name }}</h1></p>
+
+    <div class="row">
+        <!-- Posts -->
+        <div class="col-8">
+            {% if post_list %}
+                {% for post in post_list %}
+                <p>
+                    <div class="p-2 container-fluid border rounded">
+                        <!-- Post title -->
+                        <h2>{{ post.title }}</h2>
+
+                        <!-- Post image, if present -->
+                        {% if post.image %}
+                        <p><img src="{{post.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-height:20em"></p>
+                        {% endif %}
+
+                        <!-- Post content -->
+                        <p>{{ post.content | linebreaks }}</p>
+
+                        <!-- Buttons: View, Edit, Delete -->
+                            <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
+                        <ul class="list-group list-group-horizontal d-flex justify-content-end">
+                            <!-- View post details -->
+                            <li class="list-group-item p-0 border-0">
+                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}" role="button">View Full Post</a>
+                            </li>
+                            
+                            <!-- Spacer -->
+                            <li class="list-group-item p-0 border-0">
+                                &nbsp
+                            </li>
+                            
+                            <!-- Edit post -->
+                            <li class="list-group-item p-0 border-0">
+                                <a class="btn btn-outline-primary btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/edit" role="button">Edit Post</a>
+                            </li>
+
+                            <!-- Spacer -->
+                            <li class="list-group-item p-0 border-0">
+                                &nbsp
+                            </li>
+
+                            <!-- Delete post -->
+                            <li class="list-group-item p-0 border-0">
+                                <a class="btn btn-outline-danger btn-sm" href="/blog/{{blog.id}}/post/{{post.id}}/delete" role="button">Delete Post</a>
+                            </li>
+                        </ul>
+                    </div>
+                </p>
+                {% endfor %}
+            {% else %}
+                <p>
+                    <div class="p-2 container-fluid border rounded">
+                        <p>This blog has no posts.</p>
+                    </div>
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- Profile -->
+        <div class="col-4">
+            <p>
+                <div class="p-2 container-fluid border rounded">
+                    <!-- Author image; custom or default -->
+                    {% if blog.author.image %}
+                        <img src="{{blog.author.image.url}}" class="img-fluid border rounded w-50 mx-auto d-block">
+                    {% else %}
+                        <img src="{% static 'images/icondefault.png' %}" class="img-fluid border rounded w-50 mx-auto d-block">
+                    {% endif %}
+
+                    <!-- About section -->
+                    <h4>About</h4>
+                    <h5>Author</h5>
+                    <p>
+                        <div class="container-sm">
+                            {{ blog.author }}
+                        </div>
+                    </p>
+                    
+                    {% if blog.author.profile %}
+                    <h5>Profile</h5>
+                    <p>
+                        <div class="container-sm">
+                            {{ blog.author.profile | linebreaks }}
+                        </div>
+                    </p>
+                    {% endif %}
+                </div>
+            </p>
+        </div>
+    </div>    
+</div>
+{% endblock %}

@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import Author, Blog, Post, Comment
-from .forms import PostForm, CommentForm, AuthorForm, BlogForm
+from .forms import PostForm, CommentForm, AuthorForm, BlogForm, CreateUserForm
 from django.urls import reverse
+from django.contrib import messages
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from .decorators import allowed_users
 
 # Create your views here.
 
@@ -21,9 +25,13 @@ def index(request):
     #return render( request, 'blog_app/index.html', {'author_blogs':author_blogs})
 
 # Dashboard
+@login_required(login_url='login')
+#@allowed_users(allowed_roles='author_role')
 def dashboard(request):
     # Comments list
     comment_list = Comment.objects.all().order_by('-id')[:3]  # Reverse newest order; only show up to 3
+    #userBlog = request.user.blog.id
+    #userPosts = Post.objects.filter(blog_id=userBlog)
     print("all comments query set", comment_list)
 
     # Blogs list
@@ -38,14 +46,9 @@ def dashboard(request):
 ############################################################################################
 
 # Logged-in user's own blog
-def myBlog(request):
-    # Render blog.html
-    return render( request, 'blog_app/my_blog.html')
-
-# Any user's blog
-#def blog(request):
-#    # Render blog.html
-#    return render( request, 'blog_app/blog_detail.html')
+#def myBlog(request, account):
+    ## Render blog.html
+    #return render( request, 'blog_app/my_blog.html')
 
 # Any user's posts
 class BlogDetailView(generic.DetailView):
@@ -75,6 +78,7 @@ class PostDetailView(generic.DetailView):
 # Create Post
     # Only the owner (Author) of a Blog should be able to make
     # posts on that Blog
+@login_required(login_url='login')
 def createPost(request, blog_id):
     form = PostForm(request.POST, request.FILES)
     blog = Blog.objects.get(pk=blog_id)
@@ -103,6 +107,7 @@ def createPost(request, blog_id):
 # Update Post
     # Only the owner (Author) of the Blog to which the Post belongs should be
     # able to update/edit the posts on that Blog
+@login_required(login_url='login')
 def updatePost(request, blog_id, pk):
     post = Post.objects.get(pk=pk)
     form = PostForm(request.POST or None, instance=post)
@@ -120,6 +125,7 @@ def updatePost(request, blog_id, pk):
 # Delete Post
     # Only the owner (Author) of the Blog to which the Post belongs should be
     # able to delete the posts on that Blog
+@login_required(login_url='login')
 def deletePost(request, blog_id, pk):
     post = Post.objects.get(pk=pk)
     
@@ -164,6 +170,7 @@ def createComment(request, blog_id, pk):
     # Comments should not be able to be edited unless the user is logged in
     # Then, the comment would ideally be associated with their author ID
     # Commenters should only be able to update/edit their own comments
+@login_required(login_url='login')
 def updateComment(request, blog_id, post_id, pk):
     comment = Comment.objects.get(pk=pk)
     form = CommentForm(request.POST or None, instance=comment)
@@ -181,6 +188,7 @@ def updateComment(request, blog_id, post_id, pk):
     # Comments should not be able to be edited unless the user is logged in
     # Blog owners (Authors) should be able to delete any comment;
     # Non-Blog owners should only be able to delete their own comments
+@login_required(login_url='login')
 def deleteComment(request, blog_id, post_id, pk):
     comment = Comment.objects.get(pk=pk)
     
@@ -198,18 +206,20 @@ def deleteComment(request, blog_id, post_id, pk):
 ############################################################################################
 
 # Logged-in user's post management page
-def managePosts(request):
+@login_required(login_url='login')
+def managePosts(request, blog_id):
     # Render relevant template
     #return render( request, 'blog_app/manage_posts.html')
 
     # TEMP - Only goes to Blog 1 (Loe's Blog) for Sprint 1
-    post_list = Post.objects.filter(blog_id='1').order_by('-id')
+    post_list = Post.objects.filter(blog_id=blog_id).order_by('-id')
     print("all posts query set", post_list)
 
     # Render dashboard.html
     return render( request, 'blog_app/manage_posts.html', {'post_list':post_list})
 
 # Logged-in user's account settings
+@login_required(login_url='login')
 def updateAccount(request, author_id):
     # Render relevant template
     #return render( request, 'blog_app/update_account.html')
@@ -219,6 +229,7 @@ def updateAccount(request, author_id):
 
     if request.method == 'POST':
         if form.is_valid():
+            form = AuthorForm(request.POST, request.FILES, instance=author)
             form.save()
 
             return redirect('index')
@@ -227,6 +238,7 @@ def updateAccount(request, author_id):
     return render(request, 'blog_app/update_account.html', context)
 
 # Logged-in user's blog settings
+@login_required(login_url='login')
 def updateBlog(request, blog_id):
     # Render relevant template
     #return render( request, 'blog_app/update_blog.html')
@@ -248,6 +260,7 @@ def updateBlog(request, blog_id):
 ############################################################################################
 
 # Logged-in user's saved blogs
+@login_required(login_url='login')
 def savedBlogs(request):
     # Render relevant template
     return render( request, 'blog_app/saved_blogs.html')
@@ -278,3 +291,55 @@ def allPosts(request):
 
     # Render all_posts.html
     return render( request, 'blog_app/all_posts.html', {'post_list':post_list})
+
+############################################################################################
+# User accounts
+############################################################################################
+
+# User registration page
+def registerPage(request):
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            usr = form.save()
+            # Get name and username
+            #name = form.cleaned_data.get('name')
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+
+            # Add user to group
+            # https://stackoverflow.com/questions/66491021/doesnotexist-getting-group-matching-query-does-not-exist-error-while-saving
+            #group = Group.objects.get_or_create(name='author_role')
+            #usr.groups.add(group)
+
+            # Set information
+            author = Author.objects.create(name='Anonymous', username=username, email=email) # use author model
+            blog = Blog.objects.create(author=author,user=usr) # use blog model
+            blog.author = author
+            blog.save()
+
+            messages.success(request, 'Account created for ' + username)
+            return redirect('login')
+        
+    context = {'form':form}
+    return render(request, 'registration/register.html', context)
+
+# User view
+@login_required(login_url='login')
+# Add allowed_users
+def userPage(request):
+    blog = request.user.blog
+    form = BlogForm(instance = blog)
+    print('Blog: ', blog)
+    author = blog.author
+    print('Author: ', author)
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            form.save()
+    
+    context = {'authors':author, 'form':form}
+    return render(request, 'blog_app/user.html', context)

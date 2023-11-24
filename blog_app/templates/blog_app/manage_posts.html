@@ -16,7 +16,7 @@
                     <div class="row">
                         <!-- Post data -->
                         {% if i.image.image %}<div class="col-9">{% else %}<div class="col">{% endif %}
-                            <h2>{{ i.title }}</h2>
+                            <h2>{% if i.title %}{{ i.title }}{% else %}Untitled Post{% endif %}</h2>
                             <p>
                                 <!-- Post text -->
                                     <!-- Figure out how to shorten preview -->

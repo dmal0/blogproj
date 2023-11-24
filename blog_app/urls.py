@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -21,7 +21,7 @@ urlpatterns = [
     ##################################################################################################
 
     # Path to logged-in user's own blog
-    path('blog', views.myBlog, name='my_blog'),
+    #path('my/<int:pk>', views.myBlog, name='my_blog'),
 
     # Path to any user's blog
     path('blog/<int:pk>', views.BlogDetailView.as_view(), name='blog-detail'),
@@ -60,7 +60,7 @@ urlpatterns = [
     ##################################################################################################
 
     # Path to logged-in user's post management page
-    path('manage', views.managePosts, name='manage_posts'),
+    path('manage/<int:blog_id>', views.managePosts, name='manage_posts'),
 
     # Path to logged-in user's account settings
         # Final version ideally should work without blog_id
@@ -85,4 +85,26 @@ urlpatterns = [
 
     # Path to all posts
     path('posts', views.allPosts, name='allPosts'),
+
+    ##################################################################################################
+    # User accounts
+    ##################################################################################################
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    # Automatically maps:
+    # accounts/ login/                      [name='login']
+    # accounts/ logout/                     [name='logout']
+    # accounts/ password_change/            [name='password_change']
+    # accounts/ password_change/done/       [name='password_change_done']
+    # accounts/ password_reset/             [name='password_reset']
+    # accounts/ password_reset/done/        [name='password_reset_done']
+    # accounts/ reset/<uidb64>/<token>/     [name='password_reset_complete']
+    # accounts/ reset/done/
+
+    # User registration
+    path('accounts/register/', views.registerPage, name='register_page'),
+
+    # Actual user page
+    path('user/', views.userPage, name='user_page'),
+
 ]

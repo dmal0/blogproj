@@ -24,10 +24,14 @@
                         </p>
                         <div class="d-flex justify-content-end">
                             <a class="btn btn-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}" role="button">View Full Post</a>
-                            &nbsp
-                            <a class="btn btn-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}/comment/{{i.id}}/edit" role="button">Edit Comment</a>
-                            &nbsp
-                            <a class="btn btn-danger btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}/comment/{{i.id}}/delete" role="button">Delete Comment</a>
+                            
+                            <!-- Comment controls; only show to logged-in blog owner -->
+                            {% if user.is_authenticated and user.id == i.post.blog.user.id %}
+                                &nbsp
+                                <a class="btn btn-primary btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}/comment/{{i.id}}/edit" role="button">Edit Comment</a>
+                                &nbsp
+                                <a class="btn btn-danger btn-sm" href="/blog/{{i.post.blog.id}}/post/{{i.post.id}}/comment/{{i.id}}/delete" role="button">Delete Comment</a>
+                            {% endif %}
                         </div>
                     </div>
                 </p>

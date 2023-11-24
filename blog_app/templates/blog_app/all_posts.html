@@ -12,7 +12,7 @@
                         <div class="row">
                             <!-- Post data -->
                             {% if i.image.image %}<div class="col-9">{% else %}<div class="col">{% endif %}
-                                <h2>{{ i.title }}</h2>
+                                <h2>{% if i.title %}{{ i.title }}{% else %}Untitled Post{% endif %}</h2>
                                 <p>
                                     by {{ i.blog.author }} from {{ i.blog.name }}
 
@@ -32,12 +32,18 @@
                             </div>
                             {% endif %}
                         </div>
+
                         <div class="d-flex justify-content-end">
+                            <!-- Button to view full post -->
                             <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}" role="button">View Full Post</a> 
-                            &nbsp
-                            <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/edit" role="button">Edit Post</a>
-                            &nbsp
-                            <a class="btn btn-danger btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/delete" role="button">Delete Post</a>
+                            
+                            <!-- Post controls; only show to logged-in users -->
+                            {% if user.is_authenticated and user.id == i.blog.user.id %}
+                                &nbsp
+                                <a class="btn btn-primary btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/edit" role="button">Edit Post</a>
+                                &nbsp
+                                <a class="btn btn-danger btn-sm" href="/blog/{{i.blog.id}}/post/{{i.id}}/delete" role="button">Delete Post</a>
+                            {% endif %}
                         </div>
                     </div>
                 </p>

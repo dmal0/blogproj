@@ -28,6 +28,8 @@
 
                     <!-- Buttons: Edit, Delete -->
                         <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
+                    <!-- Only show to logged-in blog owner -->
+                    {% if user.is_authenticated and user.id == post.blog.user.id %}
                     <ul class="list-group list-group-horizontal d-flex justify-content-end">
                         <!-- Edit post -->
                         <li class="list-group-item p-0 border-0">
@@ -44,6 +46,7 @@
                             <a class="btn btn-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
                         </li>
                     </ul>
+                    {% endif %}
                 </div>
             </p>
 
@@ -61,6 +64,8 @@
                                 </p>
                                 
                                 <!-- Buttons: Update (edit) and Delete -->
+                                <!-- Only show to logged-in blog owner -->
+                                {% if user.is_authenticated and user.id == post.blog.user.id %}
                                 <ul class="list-group list-group-horizontal d-flex justify-content-end">
                                     <!-- Update (Edit) comment --> 
                                     <li class="list-group-item p-0 border-0">
@@ -76,6 +81,8 @@
                                     <li class="list-group-item p-0 border-0">
                                         <a class="btn btn-outline-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/{{comment.id}}/delete" role="button">Delete</a>
                                     </li>
+                                </ul>
+                                {% endif %}
                             </div>
                         </p>
                         {% endfor %}
