@@ -15,7 +15,7 @@
         <a class="btn btn-primary" href="{% url 'create_post' user.blog.id %}" role="button">New Post</a> 
         
         <!-- FOR SPRINT 1: This manages Blog 1 (Loe's Blog) by default -->
-        <a class="btn btn-primary" href="/manage" role="button">Manage Posts</a> 
+        <a class="btn btn-primary" href="{% url 'manage_posts' user.blog.id %}" role="button">Manage Posts</a> 
         
         <!-- FOR SPRINT 1: This leads to Blog 1 (Loe's Blog) by default -->
         <a class="btn btn-primary" href="{% url 'blog-detail' user.blog.id %}" role="button">View Blog</a>
