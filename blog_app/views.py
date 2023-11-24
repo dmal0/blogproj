@@ -17,12 +17,11 @@ from .decorators import allowed_users
 
 # Index
 def index(request):
-    # Render index.html
-    return render( request, 'blog_app/index.html')
-
-    #author_blogs = Author.objects.select_related('blog').all()
-    #print("All blogs query set", author_blogs)
-    #return render( request, 'blog_app/index.html', {'author_blogs':author_blogs})
+    if request.user.is_authenticated:
+        return render( request, 'blog_app/dashboard.html')
+    else:
+        # Render index.html
+        return render( request, 'blog_app/index.html')
 
 # Dashboard
 @login_required(login_url='login')
