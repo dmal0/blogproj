@@ -1,8 +1,100 @@
 <!-- inherit from base.html -->
 {% extends "blog_app/base_template.html" %}
 
+<!-- Bootstrap loading -->
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 <!-- For displaying images -->
 {% load static %}
+
+<!-- COLOR CUSTOMIZATION -->
+<!-- Replace style block in base_template.html -->
+{% block style %}
+<style>
+    body {
+        {% if post.blog.theme == 'BO' %}
+            color: #4f0c06;
+            background-color: #FF8A68 !important;
+        {% endif %}
+    }
+
+    .roundFill {
+        {% if post.blog.theme == 'BO' %}
+            background-color: #FFF0CE !important;
+            border:1px solid #df2c20 !important;
+        {% endif %}
+    }
+
+    .roundComment {
+        {% if post.blog.theme == 'BO' %}
+            background-color: #FAB99D !important;
+            border:1px solid #df2c20 !important;
+        {% endif %}
+    }
+
+    .roundBG {
+        {% if post.blog.theme == 'BO' %}
+            background-color: #FFF0CE !important;
+        {% endif %}
+    }
+
+    .roundBtnPrimaryOL {
+        {% if post.blog.theme == 'BO' %}
+            color: #E40F06 !important;
+            border:1px solid #E40F06 !important;
+        {% endif %}
+    }
+
+    .roundBtnPrimaryOL:hover {
+        {% if post.blog.theme == 'BO' %}
+        /* Same as roundBtnPrimary */
+            color: white !important;
+            background-color: #E40F06 !important;
+            border:1px solid #E40F06 !important;
+        {% endif %}
+    }
+
+    .roundBtnDangerOL {
+        {% if post.blog.theme == 'BO' %}
+            color: #7D0A04 !important;
+            border:1px solid #7D0A04 !important;
+        {% endif %}
+    }
+
+    .roundBtnDangerOL:hover {
+        {% if post.blog.theme == 'BO' %}
+        /* Same as roundBtnDanger */
+            color: white !important;
+            background-color: #7D0A04 !important;
+            border:1px solid #7D0A04 !important;
+        {% endif %}
+    }
+
+    .roundBtnPrimary {
+        {% if post.blog.theme == 'BO' %}
+            color: white !important;
+            background-color: #E40F06 !important;
+            border:1px solid #E40F06 !important;
+        {% endif %}
+    }
+
+    .roundBtnDanger {
+        {% if post.blog.theme == 'BO' %}
+            color: white !important;
+            background-color: #7D0A04 !important;
+            border:1px solid #7D0A04 !important;
+        {% endif %}
+    }
+
+    .roundImg {
+        {% if post.blog.theme == 'BO' %}
+            border:1px solid #df2c20 !important;
+        {% endif %}
+    }
+</style>
+{% endblock %}
 
 <!-- Replace block content in base_template.html -->
 {% block content %}
@@ -14,13 +106,13 @@
         <div class="col-8">
             <!-- Post -->
             <p>
-                <div class="p-2 container-fluid border rounded">
+                <div class="p-2 container-fluid border rounded roundFill">
                     <!-- One specific post -->
                     <h2>{{ post.title }}</h2>
                     
                     <!-- Post image, if present -->
                     {% if post.image %}
-                    <p><img src="{{post.image.url}}" class="img-fluid border rounded mx-auto d-block" style="max-width:75%;"></p>
+                    <p><img src="{{post.image.url}}" class="img-fluid border rounded mx-auto d-block roundImg" style="max-width:75%;"></p>
                     {% endif %}
 
                     <!-- Post content -->
@@ -30,20 +122,20 @@
                         <!-- "Edit" and "Delete" should only show for logged-in user on their own blog -->
                     <!-- Only show to logged-in blog owner -->
                     {% if user.is_authenticated and user.id == post.blog.user.id %}
-                    <ul class="list-group list-group-horizontal d-flex justify-content-end">
+                    <ul class="list-group list-group-horizontal d-flex justify-content-end roundBG">
                         <!-- Edit post -->
-                        <li class="list-group-item p-0 border-0">
-                            <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/edit" role="button">Edit</a>
+                        <li class="list-group-item p-0 border-0 roundBG">
+                            <a class="btn btn-primary btn-sm roundBtnPrimary" href="/blog/{{post.blog.id}}/post/{{post.id}}/edit" role="button">Edit</a>
                         </li>
 
                         <!-- Spacer -->
-                        <li class="list-group-item p-0 border-0">
+                        <li class="list-group-item p-0 border-0 roundBG">
                             &nbsp
                         </li>
 
                         <!-- Delete post -->
-                        <li class="list-group-item p-0 border-0">
-                            <a class="btn btn-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
+                        <li class="list-group-item p-0 border-0 roundBG">
+                            <a class="btn btn-danger btn-sm roundBtnDanger" href="/blog/{{post.blog.id}}/post/{{post.id}}/delete" role="button">Delete</a>
                         </li>
                     </ul>
                     {% endif %}
@@ -52,12 +144,12 @@
 
             <!-- Comments -->
             <p>
-                <div class="p-2 container-fluid border rounded">
+                <div class="p-2 container-fluid border rounded roundComment">
                     <h4>Comments</h4>
                     {% if comment_list %}
                         {% for comment in comment_list %}
                         <p>
-                            <div class="p-2 container-fluid border rounded">
+                            <div class="p-2 container-fluid border rounded roundFill">
                                 <p>
                                     <strong>{{ comment.commenter }}:</strong><br>
                                     {{ comment.content }}
@@ -66,20 +158,20 @@
                                 <!-- Buttons: Update (edit) and Delete -->
                                 <!-- Only show to logged-in blog owner -->
                                 {% if user.is_authenticated and user.id == post.blog.user.id %}
-                                <ul class="list-group list-group-horizontal d-flex justify-content-end">
+                                <ul class="list-group list-group-horizontal d-flex justify-content-end roundBG">
                                     <!-- Update (Edit) comment --> 
-                                    <li class="list-group-item p-0 border-0">
-                                        <a class="btn btn-outline-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/{{comment.id}}/edit" role="button">Edit</a>
+                                    <li class="list-group-item p-0 border-0 roundBG">
+                                        <a class="btn btn-outline-primary btn-sm roundBtnPrimaryOL" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/{{comment.id}}/edit" role="button">Edit</a>
                                     </li>
 
                                     <!-- Spacer -->
-                                    <li class="list-group-item p-0 border-0">
+                                    <li class="list-group-item p-0 border-0 roundBG">
                                         &nbsp
                                     </li>
 
                                     <!-- Delete comment --> 
-                                    <li class="list-group-item p-0 border-0">
-                                        <a class="btn btn-outline-danger btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/{{comment.id}}/delete" role="button">Delete</a>
+                                    <li class="list-group-item p-0 border-0 roundBG">
+                                        <a class="btn btn-outline-danger btn-sm roundBtnDangerOL" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/{{comment.id}}/delete" role="button">Delete</a>
                                     </li>
                                 </ul>
                                 {% endif %}
@@ -95,26 +187,26 @@
                     {% endif %}
                     <!-- Button for making new comments -->
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-primary btn-sm" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/new" role="button">New Comment</a>
+                        <a class="btn btn-primary btn-sm roundBtnPrimary" href="/blog/{{post.blog.id}}/post/{{post.id}}/comment/new" role="button">New Comment</a>
                     </div>
                 </div>
             </p>
 
             <!-- Back button -->
             <p>
-                <a class="btn btn-primary " href="/blog/{{post.blog.id}}" role="button">≪ Back to Blog</a>
+                <a class="btn btn-primary roundBtnPrimary" href="/blog/{{post.blog.id}}" role="button">≪ Back to Blog</a>
             </p>
         </div>
 
         <!-- Profile -->
         <div class="col-4">
             <p>
-                <div class="p-2 container-fluid border rounded">
+                <div class="p-2 container-fluid border rounded roundFill">
                     <!-- Author image; custom or default -->
                     {% if post.blog.author.image %}
-                        <img src="{{post.blog.author.image.url}}" class="img-fluid border rounded w-50 mx-auto d-block">
+                        <img src="{{post.blog.author.image.url}}" class="img-fluid border rounded w-50 mx-auto d-block roundImg">
                     {% else %}
-                        <img src="{% static 'images/icondefault.png' %}" class="img-fluid border rounded w-50 mx-auto d-block">
+                        <img src="{% static 'images/icondefault.png' %}" class="img-fluid border rounded w-50 mx-auto d-block roundImg">
                     {% endif %}
                     
                     <!-- About section -->

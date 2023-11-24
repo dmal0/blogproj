@@ -27,7 +27,7 @@ class AuthorForm(ModelForm):
 class BlogForm(ModelForm):
     class Meta:
         model = Blog
-        fields = ('name',)
+        fields = ('name', 'theme')
         #exclude = ['user', 'author']
 
 # Create User form

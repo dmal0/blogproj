@@ -29,12 +29,20 @@ class Author(models.Model):
 
 # Blog (for logged-in user)
 class Blog(models.Model):
+    #List of choices for major value in database, human readable name
+    THEME = (
+        ('None', 'None'),
+        ('BO', 'Blood Orange'),
+    )
+
     # Fields
     name = models.CharField(max_length=200, default="Untitled")
     # One-to-One Blog-Author relationship; Author has one Blog, Blog has one Author
     author = models.OneToOneField(Author, on_delete=models.CASCADE, unique=True, default="Anonymous")
     # Same relationship for User
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, unique=True)
+    # Custom color theme
+    theme = models.CharField(max_length=200, choices=THEME, null=True, default=None)
 
     #Define default String to return the name for representing the Model object."
     def __str__(self):
