@@ -313,7 +313,7 @@ def registerPage(request):
             #usr.groups.add(group)
 
             # Set information
-            author = Author.objects.create(name='Anonymous', username=username, email=email) # use author model
+            author = Author.objects.create(name=username, username=username, email=email) # use author model
             blog = Blog.objects.create(author=author,user=usr) # use blog model
             blog.author = author
             blog.save()
