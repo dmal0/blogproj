@@ -15,31 +15,27 @@
         This app is a basic blogging platform for sharing text and images.<br>
         Each Blog has one Author and multiple Posts, while 
         each Post belongs to one Blog and can have multiple Comments.<br>
-        In the final version of the app, this page will likely become a login page.
     </p>
     <p>
-        The navigation bar at the top has a link to this page ("Index"), the Dashboard, 
-        lists of all Blogs, Posts, and Comments, as well as a dropdown menu with links to
-        the user's own Blog, their Post management page, their account (Author) settings,
-        and their Blog settings. There is also a placeholder link for a lougout button,
-        but it is disabled.
+        The navigation bar at the top has a link to this page ("Index"), which turns into
+        the Dashboard when logged in.<br> 
+        The navigation bar also has links to lists of all Blogs, Posts, and Comments, 
+        as well as a dropdown menu with links to, when logged in, the user's own Blog, 
+        their Post management page, their account (Author) settings, their Blog settings,
+        and a log out link.<br>
+        For logged-out users, only a registration and log in link are displayed.
     </p>
     <p>
         The list for all Blogs does not contain "Edit" (Update) or "Delete" buttons because
         users should only be able to manage their own blogs, which is done via their individual 
-        Blog settings pages. In the final version of the app, this should apply to the list of all 
-        Posts as well. The final version of the list of all Comments will also ideally only show 
-        the comments on the logged-in user's Blog Posts.
-    </p>
-    <p> 
-        In this iteration of the app, there is also no way to create a new Blog or Author 
-        (which combined should, in some way, form an Account in the final version of the app) 
-        because we have not yet learned in class about authentication or managing accounts.
+        Blog settings pages. In the list of all Posts, users are only shown the edit and delete buttons
+        for their own Posts. The same applies to the list of all Comments.
     </p>
 
     <!-- Required sample image -->
     <p>
-        Below is the default icon for Authors with no registered icon:<br>
+        As required by the Sprint 1 instructions, below is an example image.<br>
+        This image is the default icon for Authors with no registered icon:<br>
         <img src="{% static 'images/icondefault.png' %}" class="img-fluid border rounded me-auto d-block" style="max-height:20em;">
     </p>
 

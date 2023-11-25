@@ -20,9 +20,6 @@ urlpatterns = [
     # Blog Detail viewing
     ##################################################################################################
 
-    # Path to logged-in user's own blog
-    #path('my/<int:pk>', views.myBlog, name='my_blog'),
-
     # Path to any user's blog
     path('blog/<int:pk>', views.BlogDetailView.as_view(), name='blog-detail'),
 
