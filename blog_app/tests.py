@@ -68,7 +68,6 @@ class CommentModelTest(TestCase):
 ##################################################################################################
 
 class RegistrationFormTest(TestCase):
-
     def testform(self):
         selenium = webdriver.Firefox()
         # Visit URL
@@ -103,7 +102,6 @@ class RegistrationFormTest(TestCase):
         selenium.quit()
 
 class LoginFormTest(TestCase):
-
     def testform(self):
         selenium = webdriver.Firefox()
         # Visit URL
@@ -134,22 +132,6 @@ class LoginFormTest(TestCase):
 ##################################################################################################
 # Integration tests
 ##################################################################################################
-
-# Blog detail view OK
-class BlogDetailViewTest(TestCase):
-    def setUp(self):
-        # Create an author, blog, and post for testing
-        self.user = User.objects.create(username='TestCaseUser', email='testcaseuser@uccs.edu')
-        self.author = Author.objects.create(username=self.user.username, email=self.user.email)
-        self.blog = Blog.objects.create(name='Test Blog Title', author=self.author, user=self.user)
-
-    def test_blog_detail_view(self):
-        # Test that the post detail view returns a 200 status code,
-        # uses the correct template, and contains the blog title
-        response = self.client.get(reverse('blog-detail', args=[self.user.blog.id]))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'blog_app/blog_detail.html')
-        self.assertContains(response, 'Test Blog Title')
 
 # Blog detail view OK
 class BlogDetailViewTest(TestCase):
