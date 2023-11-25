@@ -104,6 +104,9 @@ urlpatterns = [
     # User registration
     path('accounts/register/', views.registerPage, name='register_page'),
 
+    # User profile link redirect
+    path('accounts/profile/', views.dashboardRedirect, name='user_profile'),
+
     # Actual user page
     path('user/', views.userPage, name='user_page'),
 

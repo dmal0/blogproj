@@ -341,3 +341,8 @@ def userPage(request):
     
     context = {'authors':author, 'form':form}
     return render(request, 'blog_app/user.html', context)
+
+# Dashboard redirect from /accounts/profile/
+@login_required(login_url='login')
+def dashboardRedirect(request):
+    return render( request, 'blog_app/dashboard.html')
