@@ -15,7 +15,7 @@
 <style>
     body {
         {% if post.blog.theme == 'BO' %}
-            color: #4f0c06;
+            color: #4f0c06 !important;
             background-color: #FF8A68 !important;
         {% endif %}
         {% if post.blog.theme == 'LL' %}
@@ -27,7 +27,7 @@
         {% endif %}
         {% if post.blog.theme == 'Dark' %}
             color: #EEEEEE !important;
-            background-color: #212529 !important
+            background-color: #212529 !important;
         {% endif %}
     }
 
@@ -275,7 +275,7 @@
                         {% endfor %}
                     {% else %}
                         <p>
-                            <div class="p-2 container-fluid">
+                            <div class="p-2 container-fluid rounded roundFill">
                                 <p>This post has no comments.</p>
                             </div>
                         </p>

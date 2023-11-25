@@ -20,7 +20,7 @@ class AuthorForm(ModelForm):
     class Meta:
         model = Author
         #removed "email" after "name"
-        fields = ('name', 'profile', 'image')
+        fields = ('name', 'profile', 'image', 'theme')
         #exclude = ['user']
 
 # Blog form

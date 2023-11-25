@@ -12,9 +12,13 @@ class Author(models.Model):
     email = models.CharField(max_length=200, default=None)
     profile = models.TextField(blank = True)
     image = models.ImageField(upload_to="images/authors/", null=True, blank=True, default="")
-    # Author relationship with user
-    # https://stackoverflow.com/questions/39527289/associating-users-with-models-django
-    #user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, unique=True)
+    # Light/dark mode toggle
+    THEME = (
+        ('Light', 'Light (Default)'),
+        ('Dark', 'Dark'),
+    )
+    # Light/dark mode toggle
+    theme = models.CharField(max_length=200, choices=THEME, null=True, default=None)
     
     # One-to-One Blog-Author relationship; Author has one Blog, Blog has one Author
     #blog = models.OneToOneField(Blog, on_delete=models.CASCADE, unique=True, default = None)
@@ -29,9 +33,9 @@ class Author(models.Model):
 
 # Blog (for logged-in user)
 class Blog(models.Model):
-    #List of choices for major value in database, human readable name
+    #List of choices for theme value in database, human readable name
     THEME = (
-        ('None', 'None'),
+        ('Light', 'Light (Default)'),
         ('BO', 'Blood Orange'),
         ('LL', 'Lemon Lime'),
         ('UH', 'Ube Halaya'),

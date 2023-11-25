@@ -303,8 +303,7 @@ def registerPage(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             usr = form.save()
-            # Get name and username
-            #name = form.cleaned_data.get('name')
+            # Get username and email
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
 

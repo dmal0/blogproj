@@ -14,8 +14,19 @@
 
 {% endblock %}
 
+<!-- Dark/light mode styling -->
+{% block darkmode %}
+
+{% endblock %}
+
 <body>
-  <nav class="navbar sticky-top navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
+  <!-- Dark/light mode toggle -->
+  {% if user.blog.author.theme != 'Dark' %}
+    <nav class="navbar sticky-top navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
+  {% else %}
+    <nav class="navbar sticky-top navbar-dark navbar-expand-lg" style="background-color: #35465c;">
+  {% endif %}
+
   <div class="container-fluid">
     <!-- Branding and toggle -->
     <a class="navbar-brand" href="/"><strong>Untitled Blog App</strong></a>
@@ -73,7 +84,7 @@
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/accounts/logout?next=/">Log Out</a></li>
             {% else %}
-              <li><a class="dropdown-item" href="/accounts/register">Register</a></li>
+              <li><a class="dropdown-item" href="/accounts/register?next=login?next=/dashboard">Register</a></li>
               <li><a class="dropdown-item" href="/accounts/login?next=/dashboard">Log In</a></li>
             {% endif %}
           </ul>

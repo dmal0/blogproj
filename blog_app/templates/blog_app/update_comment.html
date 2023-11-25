@@ -1,6 +1,36 @@
 <!-- inherit from base.html -->
 {% extends 'blog_app/base_template.html' %}
 
+<!-- Dark mode styling -->
+{% block darkmode %}
+{% if user.blog.author.theme == 'Dark' %}
+<style>
+    body {
+      color: #EEEEEE;
+      background-color: #212529;
+    }
+    .rounded {
+        color: #EEEEEE;
+        background-color: #2b3036;
+    }
+    .border {
+        border:1px solid #485057 !important;
+    }
+    .list-group {
+        color: #EEEEEE;
+        background-color: #212529;
+    }
+    .list-group-item {
+        color: #EEEEEE;
+        background-color: #212529;
+    }
+    .bg-light {
+        background-color: #1b1f22 !important;
+    }
+  </style>
+{% endif %}
+{% endblock %}
+
 <!-- Replace block content in base_template.html -->
 {% block content %}
 
