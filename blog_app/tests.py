@@ -1,7 +1,11 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from blog_app.models import Blog, Author, Post
+from blog_app.models import Blog, Author, Post, Comment
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
 
 ##################################################################################################
 # Unit tests
@@ -43,6 +47,89 @@ class PostModelTest(TestCase):
         self.assertEqual(str(self.post), 'Test Post Title')
         self.assertEqual(str(self.post.blog), 'Test Blog Title')
         self.assertEqual(str(self.post.blog.author.name), 'TestCaseUser')
+
+class CommentModelTest(TestCase):
+    def setUp(self):
+        # Create an author, blog, and post for testing
+        self.user = User.objects.create(username='TestCaseUser', email='testcaseuser@uccs.edu')
+        self.author = Author.objects.create(name=self.user.username,username=self.user.username, email=self.user.email)
+        self.blog = Blog.objects.create(name='Test Blog Title', author=self.author, user=self.user)
+        self.post = Post.objects.create(title='Test Post Title', blog=self.blog, user=self.user)
+        self.comment = Comment.objects.create(post=self.post, commenter='Test Commenter', content='This is a test comment')
+
+    def test_comment_str(self):
+        # Test that the _str_ method returns the title of the post, commenter, and content
+        self.assertEqual(str(self.comment.post), 'Test Post Title')
+        self.assertEqual(str(self.comment.commenter), 'Test Commenter')
+        self.assertEqual(str(self.comment.content), 'This is a test comment')
+
+##################################################################################################
+# Selenium tests
+##################################################################################################
+
+class RegistrationFormTest(TestCase):
+
+    def testform(self):
+        selenium = webdriver.Firefox()
+        # Visit URL
+        selenium.get('http://127.0.0.1:8000/accounts/register')
+        
+        # Find elements for form submission
+        user_un = selenium.find_element(By.ID,'id_username')
+        user_em = selenium.find_element(By.ID,'id_email')
+        user_pw1 = selenium.find_element(By.ID,'id_password1')
+        user_pw2 = selenium.find_element(By.ID,'id_password2')
+
+        submit = selenium.find_element(By.ID,'submit_create_user')
+
+        # Populate form
+        user_un.send_keys('TestCaseUser')
+        user_em.send_keys('testcaseuser@uccs.edu')
+        user_pw1.send_keys('ab12cd34')
+        user_pw2.send_keys('ab12cd34')
+
+        # Submit form
+        submit.send_keys(Keys.RETURN)
+        
+        # Check All Blogs List
+        selenium.get('http://127.0.0.1:8000/blogs')
+        # Refresh the page
+        time.sleep(5)
+        selenium.refresh()
+        allBlogs = selenium.page_source
+
+        assert "TestCaseUser" in allBlogs
+
+        selenium.quit()
+
+class LoginFormTest(TestCase):
+
+    def testform(self):
+        selenium = webdriver.Firefox()
+        # Visit URL
+        selenium.get('http://127.0.0.1:8000/accounts/login')
+        
+        # Find elements for form submission
+        user_un = selenium.find_element(By.ID,'id_username')
+        user_pw = selenium.find_element(By.ID,'id_password')
+
+        submit = selenium.find_element(By.ID,'submit_login')
+
+        # Populate form
+        user_un.send_keys('TestCaseUser')
+        user_pw.send_keys('ab12cd34')
+
+        # Submit form
+        submit.send_keys(Keys.RETURN)
+
+        # Check Dashboard, which is only available to logged-in users
+        time.sleep(5)
+        selenium.get('http://127.0.0.1:8000/dashboard')
+        dashboard = selenium.page_source
+
+        assert "Dashboard" in dashboard
+
+        selenium.quit()
 
 ##################################################################################################
 # Integration tests

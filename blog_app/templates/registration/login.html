@@ -5,9 +5,7 @@
   <div class="container-lg">
     <p><h1>Log In</h1></p>
   </div>
-  <div class="d-flex p-2 justify-content-center">
-
-    <!-- doesn't work correctly - do not want to do all messages-->
+  <div class="d-flex p-2 justify-content-center" id="message">
     {% for message in messages %}
       <p>{{message}}</p>
     {% endfor %}
@@ -58,7 +56,7 @@
         &nbsp-->
         <li class="list-group-item p-0 border-0">
           <!-- Login button -->
-          <input class="btn btn-primary" type="submit" value="Log In">
+          <input class="btn btn-primary" type="submit" id="submit_login" value="Log In">
           <input type="hidden" name="next" value="{{ next }}">
         </li>
       </ul>
