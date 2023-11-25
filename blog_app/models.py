@@ -34,6 +34,8 @@ class Blog(models.Model):
         ('None', 'None'),
         ('BO', 'Blood Orange'),
         ('LL', 'Lemon Lime'),
+        ('UH', 'Ube Halaya'),
+        ('Dark', 'Dark'),
     )
 
     # Fields

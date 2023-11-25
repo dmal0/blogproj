@@ -21,6 +21,14 @@
         {% if blog.theme == 'LL' %}
             background-color: #b1f53d !important;
         {% endif %}
+        {% if blog.theme == 'UH' %}
+            color: #EEEEEE !important;
+            background-color: #7b1fa6 !important;
+        {% endif %}
+        {% if blog.theme == 'Dark' %}
+            color: #EEEEEE !important;
+            background-color: #212529 !important
+        {% endif %}
     }
 
     .roundFill {
@@ -31,6 +39,14 @@
         {% if blog.theme == 'LL' %}
             background-color: #ebfcb8 !important;
             border:1px solid #35942D !important;
+        {% endif %}
+        {% if blog.theme == 'UH' %}
+            background-color: #3e1d70 !important;
+            border:1px solid #231442 !important;
+        {% endif %}
+        {% if blog.theme == 'Dark' %}
+            background-color: #2b3036 !important;
+            border:1px solid #485057 !important;
         {% endif %}
     }
 
@@ -43,6 +59,14 @@
             background-color: #D2EF98 !important;
             border:1px solid #35942D !important;
         {% endif %}
+        {% if blog.theme == 'UH' %}
+            background-color: #2e1654 !important;
+            border:1px solid #231442 !important;
+        {% endif %}
+        {% if blog.theme == 'Dark' %}
+            background-color: #1b1f22 !important;
+            border:1px solid #495057 !important;
+        {% endif %}
     }
 
     .roundBG {
@@ -51,6 +75,12 @@
         {% endif %}
         {% if blog.theme == 'LL' %}
             background-color: #ebfcb8 !important;
+        {% endif %}
+        {% if blog.theme == 'UH' %}
+            background-color: #3e1d70 !important;
+        {% endif %}
+        {% if blog.theme == 'Dark' %}
+            background-color: #2b3036 !important;
         {% endif %}
     }
 
@@ -62,6 +92,10 @@
         {% if blog.theme == 'LL' %}
             color: #35942D !important;
             border:1px solid #35942D !important;
+        {% endif %}
+        {% if blog.theme == 'UH' %}
+            color: #D780F6 !important;
+            border:1px solid #D780F6 !important;
         {% endif %}
     }
 
@@ -77,6 +111,11 @@
             background-color: #35942D !important;
             border:1px solid #35942D !important;
         {% endif %}
+        {% if blog.theme == 'UH' %}
+            color: white !important;
+            background-color: #D780F6 !important;
+            border:1px solid #D780F6 !important;
+        {% endif %}
     }
 
     .roundBtnDangerOL {
@@ -84,14 +123,23 @@
             color: #7D0A04 !important;
             border:1px solid #7D0A04 !important;
         {% endif %}
+        {% if blog.theme == 'UH' %}
+            color: #FC5566 !important;
+            border:1px solid #FC5566 !important;
+        {% endif %}
     }
 
     .roundBtnDangerOL:hover {
-        {% if blog.theme == 'BO' %}
         /* Same as roundBtnDanger */
+        {% if blog.theme == 'BO' %}
             color: white !important;
             background-color: #7D0A04 !important;
             border:1px solid #7D0A04 !important;
+        {% endif %}
+        {% if blog.theme == 'UH' %}
+            color: white !important;
+            background-color: #FC5566 !important;
+            border:1px solid #FC5566 !important;
         {% endif %}
     }
 
@@ -106,6 +154,11 @@
             background-color: #35942D !important;
             border:1px solid #35942D !important;
         {% endif %}
+        {% if blog.theme == 'UH' %}
+            color: #231442 !important;
+            background-color: #D780F6 !important;
+            border:1px solid #D780F6 !important;
+        {% endif %}
     }
 
     .roundBtnDanger {
@@ -113,6 +166,11 @@
             color: white !important;
             background-color: #7D0A04 !important;
             border:1px solid #7D0A04 !important;
+        {% endif %}
+        {% if blog.theme == 'UH' %}
+            color: white !important;
+            background-color: #FC5566 !important;
+            border:1px solid #FC5566 !important;
         {% endif %}
     }
 
@@ -122,6 +180,12 @@
         {% endif %}
         {% if blog.theme == 'LL' %}
             border:1px solid #35942D !important;
+        {% endif %}
+        {% if blog.theme == 'UH' %}
+            border:1px solid #231442 !important;
+        {% endif %}
+        {% if blog.theme == 'Dark' %}
+            border:1px solid #485057 !important;
         {% endif %}
     }
 </style>
