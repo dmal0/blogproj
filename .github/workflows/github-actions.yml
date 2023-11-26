@@ -23,7 +23,7 @@ jobs:
             mkdir djvenv
             cd djvenv
             python3 -m venv .
-            source ./scripts/activate
+            source scripts/activate
             cd ..
             python manage.py runserver
             python manage.py test
