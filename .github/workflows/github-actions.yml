@@ -14,10 +14,11 @@ jobs:
         with:
            python-version: 3.11
       - name: Install requirements
-        run:
+        run: |
             pip install -r requirements.txt
       - name: Run tests
-        run: cd ..
-             source ./djvenv/scripts/activate
-             python manage.py runserver
-             python manage.py test
+        run: |
+              cd ..
+              source ./djvenv/scripts/activate
+              python manage.py runserver
+              python manage.py test
