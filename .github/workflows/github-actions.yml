@@ -19,6 +19,6 @@ jobs:
       - name: Run tests
         run: |
             cd ..
-            source ./djvenv/scripts/activate
+            . ./djvenv/scripts/activate
             python manage.py runserver
             python manage.py test
