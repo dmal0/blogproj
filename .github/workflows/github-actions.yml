@@ -16,6 +16,10 @@ jobs:
       - name: Install requirements
         run: |
             pip install -r requirements.txt
+      - name: Install Selenium and geckodriver
+        run: |
+            pip install selenium
+            sudo apt install firefox-geckodriver
       - name: Run tests
         run: |
             python manage.py test
