@@ -19,6 +19,8 @@ jobs:
       - name: Run tests
         run: |
             cd ..
-            . ./djvenv/scripts/activate
+            pip install --upgrade virtualenv
+            python3 -m venv ./djvenv
+            source djvenv/scripts/activate
             python manage.py runserver
             python manage.py test
