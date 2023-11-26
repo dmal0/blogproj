@@ -22,7 +22,7 @@ jobs:
             sudo pip install --upgrade virtualenv
             mkdir djvenv
             cd djvenv
-            python3 -m djvenv .
+            python3 -m venv .
             source ./scripts/activate
             cd ..
             python manage.py runserver
