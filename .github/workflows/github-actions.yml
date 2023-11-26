@@ -19,7 +19,7 @@ jobs:
       - name: Install Selenium and geckodriver
         run: |
             pip install selenium
-            sudo apt install firefox-geckodriver
+            pip install geckodriver-autoinstaller
       - name: Run tests
         run: |
             python manage.py test
