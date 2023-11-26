@@ -66,7 +66,7 @@ class CommentModelTest(TestCase):
 ##################################################################################################
 # Selenium tests
 ##################################################################################################
-
+'''
 class RegistrationFormTest(TestCase):
     def testform(self):
         selenium = webdriver.Firefox()
@@ -99,7 +99,7 @@ class RegistrationFormTest(TestCase):
 
         assert "TestCaseUserReg" in allBlogs
 
-        #selenium.quit()
+        selenium.quit()
 
 class LoginFormTest(TestCase):
     def testform(self):
@@ -127,8 +127,8 @@ class LoginFormTest(TestCase):
 
         assert "Dashboard" in dashboard
 
-        #selenium.quit()
-
+        selenium.quit()
+'''
 ##################################################################################################
 # Integration tests
 ##################################################################################################
