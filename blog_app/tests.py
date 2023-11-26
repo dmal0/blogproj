@@ -82,8 +82,8 @@ class RegistrationFormTest(TestCase):
         submit = selenium.find_element(By.ID,'submit_create_user')
 
         # Populate form
-        user_un.send_keys('TestCaseUser')
-        user_em.send_keys('testcaseuser@uccs.edu')
+        user_un.send_keys('TestCaseUserReg')
+        user_em.send_keys('testcaseuserreg@uccs.edu')
         user_pw1.send_keys('ab12cd34')
         user_pw2.send_keys('ab12cd34')
 
@@ -97,9 +97,9 @@ class RegistrationFormTest(TestCase):
         selenium.refresh()
         allBlogs = selenium.page_source
 
-        assert "TestCaseUser" in allBlogs
+        assert "TestCaseUserReg" in allBlogs
 
-        selenium.quit()
+        #selenium.quit()
 
 class LoginFormTest(TestCase):
     def testform(self):
@@ -127,7 +127,7 @@ class LoginFormTest(TestCase):
 
         assert "Dashboard" in dashboard
 
-        selenium.quit()
+        #selenium.quit()
 
 ##################################################################################################
 # Integration tests

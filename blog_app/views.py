@@ -31,11 +31,11 @@ def dashboard(request):
     comment_list = Comment.objects.all().order_by('-id')[:3]  # Reverse newest order; only show up to 3
     #userBlog = request.user.blog.id
     #userPosts = Post.objects.filter(blog_id=userBlog)
-    print("all comments query set", comment_list)
+    print("All comments query set: ", comment_list)
 
     # Blogs list
     blog_list = Blog.objects.all()[:5] # Only show up to 5
-    print("all blogs query set", blog_list)
+    print("All blogs query set: ", blog_list)
 
     # Render dashboard.html
     return render( request, 'blog_app/dashboard.html', {'comment_list':comment_list,'blog_list':blog_list})
@@ -212,7 +212,7 @@ def managePosts(request, blog_id):
 
     # TEMP - Only goes to Blog 1 (Loe's Blog) for Sprint 1
     post_list = Post.objects.filter(blog_id=blog_id).order_by('-id')
-    print("all posts query set", post_list)
+    print("All posts query set: ", post_list)
 
     # Render dashboard.html
     return render( request, 'blog_app/manage_posts.html', {'post_list':post_list})
@@ -268,7 +268,7 @@ def savedBlogs(request):
 def allBlogs(request):
     # Blogs list
     blog_list = Blog.objects.all()
-    print("all blogs query set", blog_list)
+    print("All blogs query set: ", blog_list)
 
     # Render all_blogs.html
     return render( request, 'blog_app/all_blogs.html', {'blog_list':blog_list})
@@ -277,7 +277,7 @@ def allBlogs(request):
 def allComments(request):
     # Comments list
     comment_list = Comment.objects.all().order_by('-id') # Reverse newest order
-    print("all comments query set", comment_list)
+    print("All comments query set: ", comment_list)
 
     # Render all_comments.html
     return render( request, 'blog_app/all_comments.html', {'comment_list':comment_list})
@@ -286,7 +286,7 @@ def allComments(request):
 def allPosts(request):
     # Posts list
     post_list = Post.objects.all().order_by('-id')
-    print("all posts query set", post_list)
+    print("All posts query set: ", post_list)
 
     # Render all_posts.html
     return render( request, 'blog_app/all_posts.html', {'post_list':post_list})
