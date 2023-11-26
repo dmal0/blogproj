@@ -133,22 +133,6 @@ class LoginFormTest(TestCase):
 # Integration tests
 ##################################################################################################
 
-# Blog detail view OK
-class BlogDetailViewTest(TestCase):
-    def setUp(self):
-        # Create an author, blog, and post for testing
-        self.user = User.objects.create(username='TestCaseUser', email='testcaseuser@uccs.edu')
-        self.author = Author.objects.create(username=self.user.username, email=self.user.email)
-        self.blog = Blog.objects.create(name='Test Blog Title', author=self.author, user=self.user)
-
-    def test_blog_detail_view(self):
-        # Test that the post detail view returns a 200 status code,
-        # uses the correct template, and contains the blog title
-        response = self.client.get(reverse('blog-detail', args=[self.user.blog.id]))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'blog_app/blog_detail.html')
-        self.assertContains(response, 'Test Blog Title')
-
 # All Blogs view OK
 class AllBlogsViewTest(TestCase):
     def setUp(self):
@@ -165,6 +149,25 @@ class AllBlogsViewTest(TestCase):
         self.assertTemplateUsed(response, 'blog_app/all_blogs.html')
         self.assertContains(response, 'Test Blog Title') # Test blog should be in list
 
+# All Posts view OK
+class AllPostsViewTest(TestCase):
+    def setUp(self):
+        # Create an author, blog, and post for testing
+        self.user = User.objects.create(username='TestCaseUser', email='testcaseuser@uccs.edu')
+        self.author = Author.objects.create(username=self.user.username, email=self.user.email)
+        self.blog = Blog.objects.create(name='Test Blog Title', author=self.author, user=self.user)
+        self.post1 = Post.objects.create(title='Untitled1', content='gfjgjdfd', blog=self.blog, user=self.user)
+        self.post2 = Post.objects.create(title='Untitled2', content='gfjgjdfd', blog=self.blog, user=self.user)
+
+    def test_all_posts_view(self):
+        # Test that the post detail view returns a 200 status code,
+        # uses the correct template, and contains the post title
+        response = self.client.get(reverse('allPosts'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blog_app/all_posts.html')
+        self.assertContains(response, 'Untitled1') # Test posts should be in list
+        self.assertContains(response, 'Untitled2') # Test posts should be in list
+
 # All Comments view OK
 class AllCommentsViewTest(TestCase):
     def setUp(self):
@@ -180,3 +183,37 @@ class AllCommentsViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog_app/all_comments.html')
         self.assertContains(response, 'no') # There should be no comments
+
+# Blog detail view OK
+class BlogDetailViewTest(TestCase):
+    def setUp(self):
+        # Create an author, blog, and post for testing
+        self.user = User.objects.create(username='TestCaseUser', email='testcaseuser@uccs.edu')
+        self.author = Author.objects.create(username=self.user.username, email=self.user.email)
+        self.blog = Blog.objects.create(name='Test Blog Title', author=self.author, user=self.user)
+
+    def test_blog_detail_view(self):
+        # Test that the post detail view returns a 200 status code,
+        # uses the correct template, and contains the blog title
+        response = self.client.get(reverse('blog-detail', args=[self.user.blog.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blog_app/blog_detail.html')
+        self.assertContains(response, 'Test Blog Title')
+
+# Post detail view OK
+class PostDetailViewTest(TestCase):
+    def setUp(self):
+        # Create an author, blog, and post for testing
+        self.user = User.objects.create(username='TestCaseUser', email='testcaseuser@uccs.edu')
+        self.author = Author.objects.create(username=self.user.username, email=self.user.email)
+        self.blog = Blog.objects.create(name='Test Blog Title', author=self.author, user=self.user)
+        self.post = Post.objects.create(title='Untitled1', content='gfjgjdfd', blog=self.blog, user=self.user)
+
+    def test_post_detail_view(self):
+        # Test that the post detail view returns a 200 status code,
+        # uses the correct template, and contains the blog title
+        response = self.client.get(reverse('post-detail', args=[self.blog.id, self.post.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'blog_app/post_detail.html')
+        self.assertContains(response, 'Test Blog Title') # Blog title
+        self.assertContains(response, 'Untitled1') # Post title
