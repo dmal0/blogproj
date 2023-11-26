@@ -19,7 +19,7 @@ jobs:
       - name: Run tests
         run: |
             cd ..
-            pip install --upgrade virtualenv
+            sudo pip install --upgrade virtualenv
             mkdir djvenv
             cd djvenv
             python3 -m djvenv .
