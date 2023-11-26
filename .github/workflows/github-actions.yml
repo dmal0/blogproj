@@ -21,6 +21,6 @@ jobs:
             cd ..
             pip install --upgrade virtualenv
             python3 -m venv djvenv
-            source ./djvenv/scripts/activate
+            source djvenv/Scripts/activate
             python manage.py runserver
             python manage.py test
